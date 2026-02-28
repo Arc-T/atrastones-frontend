@@ -2,6 +2,7 @@ import { AppSidebar } from "@/components/layout/app-sidebar";
 import { TopBar } from "@/components/layout/topbar";
 import { ThemeProvider } from "@/components/theme-provider";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import { Toaster } from "@/components/ui/sonner";
 import { createFileRoute, Outlet, useLocation } from "@tanstack/react-router";
 import { motion, AnimatePresence } from "motion/react";
 import { useTranslation } from "react-i18next";
@@ -20,6 +21,7 @@ function Layout() {
 
   return (
     <ThemeProvider defaultTheme="system" storageKey="theme">
+      <Toaster position="top-center" expand richColors />
       <SidebarProvider>
         <div className="flex min-h-dvh w-full bg-background">
           {/* Sidebar */}
