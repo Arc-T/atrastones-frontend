@@ -1,38 +1,28 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { Plus, Package, } from "lucide-react";
+import { createFileRoute} from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
-import { Button } from "@/components/ui/button";
-import DataTable from "@/components/custom/data-table";
 import PageHeader from "@/components/custom/page-header";
-import { attributeListColumn, filters } from "./-attribute-table";
+import { AttributeFilters, attributeListColumn } from "./-attribute-table";
 import { useGetAttributes } from "@/hooks/use-attributes";
+import DataTable from "@/components/custom/datatable/table";
 
 export const Route = createFileRoute("/dashboard/attributes/")({
   component: AttributesIndex,
+  context: () => ({ breadcrumb: "attributes" }),
 });
 
-export default function AttributesIndex() {
+function AttributesIndex() {
   const { t } = useTranslation();
-  const { isLoading, data: attriubtes} = useGetAttributes();
+  const { isLoading, data: attributes } = useGetAttributes();
 
   return (
     <>
-      <PageHeader
-        title={t("products")}
-        action={
-          <Link to="/dashboard/products">
-            <Button className="bg-indigo-600 hover:bg-indigo-700 gap-2">
-              <Plus className="w-4 h-4" /> {t("add")}
-            </Button>
-          </Link>
-        }
-      />
+      <PageHeader title={t("attributes_list")} />
       <DataTable
         columns={attributeListColumn}
-        data={attriubtes}
+        data={attributes}
+        searchable={true}
+        filterBarChildren={<AttributeFilters />}
         isLoading={isLoading}
-        filters={filters}
-        emptyIcon={<Package className="w-10 h-10" />}
       />
     </>
   );

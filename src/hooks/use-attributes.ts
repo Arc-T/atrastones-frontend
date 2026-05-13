@@ -16,9 +16,7 @@ export const useCreateAttribute = () => {
 export const useGetAttributes = (filter?: Partial<AttributeFilter>) => {
     return useQuery({
         queryKey: ["attributes"],
-        queryFn: () => AttributeService.getAll(filter),
-        staleTime: 5 * 60 * 1000,
-        retry: false,
+        queryFn: () => AttributeService.getAll(filter)
     });
 }
 

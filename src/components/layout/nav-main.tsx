@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/sidebar";
 import { useTranslation } from "react-i18next";
 import { Link } from "@tanstack/react-router";
+import { useDirection } from "@/hooks/use-direction";
 
 export function NavMain({
   items,
@@ -32,8 +33,8 @@ export function NavMain({
     }[];
   }[];
 }) {
-  const { t, i18n } = useTranslation();
-  const isRTL = i18n.dir() === "rtl";
+  const { t } = useTranslation();
+  const isRTL = useDirection();
 
   const groupedItems = items.reduce<Record<string, typeof items>>(
     (acc, item) => {
@@ -89,7 +90,8 @@ export function NavMain({
               ) : (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton tooltip={item.title} asChild>
-                    <Link to={`/dashboard/${item.url}`}
+                    <Link
+                      to={`/dashboard/${item.url}`}
                       className="flex items-center gap-2"
                     >
                       {item.icon && <item.icon />}

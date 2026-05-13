@@ -72,7 +72,7 @@ const fadeUp = {
 
 export const Route = createFileRoute("/dashboard/")({
   component: DashboardIndex,
-  context: () => ({ breadcrumb: "Home" }),
+  context: () => ({ breadcrumb: "home" }),
 });
 
 // -----------------
@@ -177,7 +177,7 @@ function AlertCard({
 // -----------------
 // Main Component
 // -----------------
-export default function DashboardIndex() {
+function DashboardIndex() {
   const { t } = useTranslation();
 
   // Fetch products & orders

@@ -6,49 +6,74 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { useDirection } from "@/hooks/use-direction";
 import { Link, useMatches } from "@tanstack/react-router";
-import React from "react";
+import { Fragment } from "react";
+import { useTranslation } from "react-i18next";
 
-type BreadcrumbContext = { breadcrumb?: string };
+interface RouteBreadcrumbContext {
+  breadcrumb: string;
+}
 
-function hasBreadcrumb(context: unknown): context is BreadcrumbContext {
-  return (
-    typeof context === "object" && context !== null && "breadcrumb" in context
-  );
+interface BreadcrumbEntry {
+  key: string;
+  path: string;
+  labelKey: string;
+}
+
+const isValidBreadcrumbContext = (
+  context: unknown,
+): context is RouteBreadcrumbContext =>
+  typeof context === "object" &&
+  context !== null &&
+  typeof (context as Record<string, unknown>).breadcrumb === "string";
+
+function toBreadcrumbEntry(
+  context: RouteBreadcrumbContext,
+  pathname: string,
+): BreadcrumbEntry {
+  return {
+    key: pathname,
+    path: pathname,
+    labelKey: context.breadcrumb,
+  };
 }
 
 export default function AutoBreadcrumb() {
   const matches = useMatches();
+  const { t } = useTranslation();
 
-  const crumbs = matches
-    .filter((m) => hasBreadcrumb(m.context) && m.context.breadcrumb)
-    .map((m) => ({
-      label: m.context.breadcrumb!,
-      to: m.pathname,
-    }));
+  const crumbs: BreadcrumbEntry[] = [];
 
-  if (!crumbs.length) return null;
+  for (const match of matches) {
+    if (isValidBreadcrumbContext(match.context)) {
+      crumbs.push(toBreadcrumbEntry(match.context, match.pathname));
+    }
+  }
+
+  // Bail early – no DOM nodes created if there's nothing to show
+  if (crumbs.length === 0) return null;
+
+  const lastIndex = crumbs.length - 1;
 
   return (
-    <Breadcrumb>
+    <Breadcrumb aria-label="Breadcrumb">
       <BreadcrumbList>
-        {crumbs.map((crumb, i) => {
-          const last = i === crumbs.length - 1;
-          return (
-            <React.Fragment key={crumb.to}>
-              <BreadcrumbItem>
-                {last ? (
-                  <BreadcrumbPage>{crumb.label}</BreadcrumbPage>
-                ) : (
-                  <BreadcrumbLink asChild>
-                    <Link to={crumb.to}>{crumb.label}</Link>
-                  </BreadcrumbLink>
-                )}
-              </BreadcrumbItem>
-              {!last && <BreadcrumbSeparator />}
-            </React.Fragment>
-          );
-        })}
+        {crumbs.map(({ key, path, labelKey }, index) => (
+          <Fragment key={key}>
+            <BreadcrumbItem>
+              {index === lastIndex ? (
+                <BreadcrumbPage>{t(labelKey)}</BreadcrumbPage>
+              ) : (
+                <BreadcrumbLink asChild>
+                  <Link to={path}>{t(labelKey)}</Link>
+                </BreadcrumbLink>
+              )}
+            </BreadcrumbItem>
+
+            {index !== lastIndex && <BreadcrumbSeparator />}
+          </Fragment>
+        ))}
       </BreadcrumbList>
     </Breadcrumb>
   );

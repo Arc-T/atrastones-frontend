@@ -3,50 +3,110 @@ import { TopBar } from "@/components/layout/topbar";
 import { ThemeProvider } from "@/components/theme-provider";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { Toaster } from "@/components/ui/sonner";
-import { createFileRoute, Outlet, useLocation } from "@tanstack/react-router";
+import { useDirection } from "@/hooks/use-direction";
+import {
+  createFileRoute,
+  Outlet,
+  useLocation,
+  useRouter,
+} from "@tanstack/react-router";
 import { motion, AnimatePresence } from "motion/react";
-import { useTranslation } from "react-i18next";
+import { Suspense, useEffect, useRef } from "react";
+import { cn } from "@/lib/utils";
+import { Loader } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
+
+function RouteError() {
+  const router = useRouter();
+
+  return (
+    <div className="flex min-h-screen items-center justify-center p-6">
+      <div className="text-center">
+        <h1 className="text-2xl font-bold">Something went wrong</h1>
+        <p className="mt-2 text-muted-foreground">
+          An unexpected error occurred
+        </p>
+        <button
+          onClick={() => router.invalidate()}
+          className="mt-4 text-sm text-primary hover:underline"
+        >
+          Try again
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function RoutePending() {
+  return (
+    <div className="flex items-center justify-center py-12">
+      <Loader size="lg" />
+    </div>
+  );
+}
 
 export const Route = createFileRoute("/dashboard")({
-  context: () => ({ breadcrumb: "Dashboard" }),
   component: Layout,
+  errorComponent: RouteError,
+  pendingComponent: RoutePending,
+  context: () => ({ breadcrumb: "dashboard" }),
 });
 
 function Layout() {
-  const { i18n } = useTranslation();
   const location = useLocation();
+  const { dir, isRTL } = useDirection();
+  const isMobile = useIsMobile();
+  const mainRef = useRef<HTMLElement>(null);
 
-  const dir = i18n.dir();
-  const isRTL = dir === "rtl";
+  // Scroll to top on route change
+  useEffect(() => {
+    mainRef.current?.scrollTo({ top: 0, behavior: "instant" });
+  }, [location.pathname]);
 
   return (
     <ThemeProvider defaultTheme="system" storageKey="theme">
-      <Toaster position="top-center" expand richColors />
-      <SidebarProvider>
-        <div className="flex min-h-dvh w-full bg-background">
-          {/* Sidebar */}
+      <Toaster
+        position="top-center"
+        expand
+        richColors
+        duration={4000}
+        className={cn("sm:max-w-[420px]", isMobile && "bottom-4 top-auto")}
+      />
+
+      <SidebarProvider defaultOpen={!isMobile}>
+        <div
+          className="flex min-h-dvh w-full bg-background antialiased"
+          dir={dir}
+          role="application"
+          aria-label="Dashboard layout"
+        >
           <AppSidebar dir={dir} side={isRTL ? "right" : "left"} />
 
-          {/* Content Area */}
           <SidebarInset className="flex flex-1 flex-col">
             <TopBar />
 
-            <main className="flex-1 overflow-y-auto">
-              <div className="mx-auto w-full max-w-7xl p-6">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={location.pathname}
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -8 }}
-                    transition={{
-                      duration: 0.25,
-                      ease: [0.22, 1, 0.36, 1],
-                    }}
-                  >
-                    <Outlet />
-                  </motion.div>
-                </AnimatePresence>
+            <main
+              ref={mainRef}
+              className={cn(
+                "flex-1 overflow-y-auto",
+                "scroll-smooth",
+                "scrollbar-thin scrollbar-track-transparent scrollbar-thumb-muted-foreground/20 hover:scrollbar-thumb-muted-foreground/30",
+              )}
+              tabIndex={-1}
+            >
+              <div className="mx-auto w-full p-2 sm:p-4 lg:p-6">
+                <Suspense fallback={<RoutePending />}>
+                  <AnimatePresence mode="wait">
+                    <motion.main
+                      key={location.pathname}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.15 }}
+                      className="mx-auto w-full"
+                    >
+                      <Outlet />
+                    </motion.main>
+                  </AnimatePresence>
+                </Suspense>
               </div>
             </main>
           </SidebarInset>
@@ -55,5 +115,3 @@ function Layout() {
     </ThemeProvider>
   );
 }
-
-export default Layout;

@@ -25,7 +25,7 @@ export const Route = createFileRoute("/dashboard/orders/")({
   component: OrdersIndex,
 });
 
-export default function OrdersIndex() {
+function OrdersIndex() {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
   const [selected, setSelected] = useState(null);

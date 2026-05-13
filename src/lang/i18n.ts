@@ -12,12 +12,14 @@ const resources = {
       attributes: "Attributes",
       services: "Services",
       tags: "Tags",
+      reset: "Reset",
       discounts: "Discounts",
       products: "Products",
       orders: "Orders",
       search: "Search...",
       fullscreen: "Fullscreen",
       language: "Language",
+      change_language: "Change Language",
       theme: "Theme",
       dark: "Dark",
       light: "Light",
@@ -152,8 +154,10 @@ const resources = {
       profile: "پروفایل",
       settings: "تنظیمات",
       categories: "دسته‌بندی‌ها",
+      reset: "بازنشانی",
       attributes: "ویژگی‌ها",
       services: "خدمات",
+      change_language: "تغییر زبان",
       tags: "برچسب‌ها",
       discounts: "تخفیف‌ها",
       products: "محصولات",
@@ -293,12 +297,13 @@ i18n.use(initReactI18next).init({
   resources,
   fallbackLng: "fa",
   supportedLngs: ["en", "fa"],
+
   interpolation: {
     escapeValue: false,
   },
-  react: {
-    useSuspense: false,
-  },
+  // react: {
+  //   useSuspense: false,
+  // },
 });
 
 export default i18n;

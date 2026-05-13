@@ -19,7 +19,7 @@ export const Route = createFileRoute("/login/")({
   component: AdminLogin
 });
 
-export default function AdminLogin() {
+function AdminLogin() {
 
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);

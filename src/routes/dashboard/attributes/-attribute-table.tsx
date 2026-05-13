@@ -1,94 +1,80 @@
-import { Package, Pencil, Trash2 } from "lucide-react";
 import type { ColumnDef } from "@tanstack/react-table";
 import type { Attribute } from "@/types/attribute";
-import { Link } from "@tanstack/react-router";
-import { Button } from "@/components/ui/button";
+import type { ReactNode } from "react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
+import { t } from "i18next";
+import { Badge } from "@/components/ui/badge";
 
 export const attributeListColumn: ColumnDef<Attribute>[] = [
   {
     accessorKey: "name",
     header: "name",
-    cell: ({row}) => (
-      <div className="flex items-center gap-3">
-        {row.images?.[0] ? (
-          <img
-            src={row.images[0]}
-            alt=""
-            className="w-10 h-10 rounded-lg object-cover"
-          />
-        ) : (
-          <div className="w-10 h-10 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
-            <Package className="w-4 h-4 text-slate-400" />
-          </div>
-        )}
-        <div>
-          <p className="text-xs text-slate-400">{row.sku}</p>
-        </div>
-      </div>
-    ),
+    enableSorting: true,
+    cell: ({ row }) => <span className="font-medium">{row.original.name}</span>,
   },
   {
-    accessorKey: "price",
-    header: "price",
-    cell: ({row}) => (
-      <span className="font-semibold">${row.price?.toLocaleString()}</span>
-    ),
+    accessorKey: "isFilterable",
+    header: "is_filterable",
+    enableSorting: false,
+    cell: ({ row }) => {
+      const value = row.original.isFilterable;
+      return value ? (
+        <Badge variant="outline" className="bg-green-100 text-green-800">
+          بله
+        </Badge>
+      ) : (
+        <Badge variant="outline" className="bg-red-100 text-red-800">
+          خیر
+        </Badge>
+      );
+    },
   },
   {
-    accessorKey: "stock",
-    header: "stock",
-    cell: ({row}) => (
-      <span
-        className={`font-medium ${(row.stock || 0) < 10 ? "text-red-500" : "text-slate-700 dark:text-slate-300"}`}
-      >
-        {row.stock || 0}
-      </span>
-    ),
-  },
-  {
-    accessorKey: "category_id",
-    header: "category",
-    cell: ({row}) => getCategoryName(row.category_id),
-  },
-  {
-    accessorKey: "status",
-    header: "status",
-    cell: () => "draft",
-  },
-  {
-    id: "actions",
-    header: "actions",
-    cell: ({row}) => (
-      <div className="flex items-center gap-1">
-        <Link to={"ProductEdit" + `?id=${row.id}`}>
-          <Button variant="ghost" size="icon" className="h-8 w-8">
-            <Pencil className="w-3.5 h-3.5" />
-          </Button>
-        </Link>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="h-8 w-8 text-red-500"
-          onClick={(e) => {
-            e.stopPropagation();
-            deleteMutation.mutate(row.id);
-          }}
-        >
-          <Trash2 className="w-3.5 h-3.5" />
-        </Button>
-      </div>
-    ),
+    accessorKey: "category",
+    header: "category_name",
+    enableSorting: false,
+    cell: ({ row }) => {
+      const category = row.original.category;
+      return <span>{category?.name ?? "-"}</span>;
+    },
   },
 ];
 
-export const filters = [
-  {
-    key: "status",
-    label: "status",
-    options: [
-      { value: "draft", label: "draft" },
-      { value: "published", label: "published" },
-      { value: "archived", label: "archived" },
-    ],
-  },
-];
+export const AttributeFilters = (): ReactNode => {
+  return (
+    <>
+      <Select value={"test"}>
+        <SelectTrigger className="w-40 bg-white dark:bg-slate-900">
+          <SelectValue placeholder={t("status")} />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="all">{t("all")}</SelectItem>
+          <SelectItem value="draft">{t("draft")}</SelectItem>
+          <SelectItem value="published">{t("published")}</SelectItem>
+          <SelectItem value="archived">{t("archived")}</SelectItem>
+        </SelectContent>
+      </Select>
+
+      <div className="flex items-center gap-2">
+        <Input
+          type="number"
+          placeholder={t("min_price")}
+          className="w-32 bg-white dark:bg-slate-900"
+        />
+        <span className="text-slate-400">-</span>
+        <Input
+          type="number"
+          placeholder={t("max_price")}
+          className="w-32 bg-white dark:bg-slate-900"
+        />
+      </div>
+    </>
+  );
+};

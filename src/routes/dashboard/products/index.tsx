@@ -12,7 +12,7 @@ export const Route = createFileRoute("/dashboard/products/")({
   component: ProductsIndex,
 });
 
-export default function ProductsIndex() {
+function ProductsIndex() {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
 
