@@ -2,7 +2,7 @@ import z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { Category } from "~/types/category";
-import type { Pagination } from "./page";
+import type { PaginatedRequest } from "./page";
 import type { ServiceGroup } from "./service-groups";
 
 export interface Product {
@@ -26,7 +26,7 @@ export interface Product {
   media: ProductMedia[];
 }
 
-export interface ProductFilter extends Pagination { }
+export interface ProductFilter extends PaginatedRequest { }
 
 export interface ProductMedia {
   id: number;

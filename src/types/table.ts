@@ -1,14 +1,14 @@
 import type { ColumnDef } from "@tanstack/react-table";
-import type { Pagination } from "./page";
+import type { PaginatedRequest } from "./page";
 
-export type DataTableProps<TData, TParams extends Pagination> = {
+export type DataTableProps<TData, TParams extends PaginatedRequest> = {
   columns: ColumnDef<TData>[];
   fetchData: (params: TParams) => Promise<any>;
   queryKey: string;
   defaultPageSize?: number;
   pageSizeOptions?: number[];
   showPagination?: boolean;
-  mapParams?: (p: Pagination, search: string) => TParams;
+  mapParams?: (p: PaginatedRequest, search: string) => TParams;
   showIndexColumn?: boolean;
   searchField?: string;
 };

@@ -1,10 +1,15 @@
-import axios, { type AxiosInstance, type AxiosRequestConfig, type AxiosResponse } from "axios";
+import i18n from "@/lang/i18n";
+import axios, {
+  type AxiosInstance,
+  type AxiosRequestConfig,
+  type AxiosResponse,
+} from "axios";
 import { toast } from "sonner";
 
 /** ------------------------------
  * Configuration
  * -------------------------------*/
-const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
+const API_BASE_URL = import.meta.env.VITE_API_URL;
 const DEFAULT_TIMEOUT = 5000; // Increased for realism; adjust as needed
 
 /** ------------------------------
@@ -26,7 +31,7 @@ axiosInstance.interceptors.response.use(
       window.dispatchEvent(new CustomEvent("auth:logout"));
     }
     return Promise.reject(error);
-  }
+  },
 );
 
 /** ------------------------------
@@ -43,7 +48,6 @@ const toastSuccess = (message: string, suppress = false) => {
  * Simplified ApiClient
  * -------------------------------*/
 export class ApiClient<T = unknown> {
-
   private endpoint: string;
   private config: AxiosRequestConfig = {};
   private successMessage?: string;
@@ -80,7 +84,10 @@ export class ApiClient<T = unknown> {
   }
 
   /** ---------------- Private Request Handler ---------------- */
-  private async request(method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE", payload?: unknown): Promise<T> {
+  private async request(
+    method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE",
+    payload?: unknown,
+  ): Promise<T> {
     try {
       const response = await axiosInstance({
         method: method.toLowerCase() as any,
@@ -90,17 +97,21 @@ export class ApiClient<T = unknown> {
       });
 
       if (this.successMessage) {
-        toastSuccess(this.successMessage, this.suppressToasts);
+        toastSuccess(i18n.t(this.successMessage), this.suppressToasts);
       }
 
       return response.data;
     } catch (error: any) {
       const message =
-        this.errorMessage || error.response?.data?.message || error.response?.data?.error ||
+        this.errorMessage ||
+        error.response?.data?.message ||
+        error.response?.data?.error ||
         (!error.response && "اتصال به سرور برقرار نشد") ||
-        (error.code === "ECONNABORTED" ? "درخواست شما به دلیل زمان طولانی لغو شد" : "خطای نامشخص رخ داده است");
+        (error.code === "ECONNABORTED"
+          ? "درخواست شما به دلیل زمان طولانی لغو شد"
+          : "خطای نامشخص رخ داده است");
 
-      toastError(message, this.suppressToasts);
+      toastError(i18n.t(message), this.suppressToasts);
 
       // Re-throw for caller to handle (e.g., via try-catch)
       throw error;

@@ -1,4 +1,4 @@
-import type { Pagination } from "./page";
+import type { PaginatedRequest } from "./page";
 
 export interface ServiceGroup {
   id: number;
@@ -8,6 +8,6 @@ export interface ServiceGroup {
   updatedAt: string;
 }
 
-export interface ServiceGroupFilter extends Pagination {
+export interface ServiceGroupFilter extends PaginatedRequest {
   name: string;
 }

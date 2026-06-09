@@ -9,7 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { isRTL } from "@/utils/utils";
+import { isRTL } from "@/lib/utils";
 
 interface PaginationProps {
   page: number;

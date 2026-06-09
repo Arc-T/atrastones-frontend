@@ -1,20 +1,23 @@
 import ApiClient from "@/lib/api-client";
 import { api } from "@/types/endpoints";
-import type { User } from "@/types/user";
+import type { User, UserLogin } from "@/types/user";
 
 export class UserService {
-
   static async validateUserFromSession() {
-    return ApiClient
-      .for<boolean>(api.authentication.validate)
+    return ApiClient.for<User>(api.authentication.validate)
+      .onError("validation_failed")
       .post();
   }
 
-  static async authenticate(user: Partial<User>) {
-    return ApiClient
-      .for<boolean>(api.authentication.login)
-      .onSuccess("ورود موفق")
-      .post(user);
+  static async logout() {
+    return ApiClient.for(api.authentication.logout)
+      .onSuccess("logout_success")
+      .post();
   }
 
+  static async authenticate(user: Partial<UserLogin>) {
+    return ApiClient.for<boolean>(api.authentication.login)
+      .onSuccess("login_success")
+      .post(user);
+  }
 }

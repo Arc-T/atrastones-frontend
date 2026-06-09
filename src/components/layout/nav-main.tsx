@@ -14,9 +14,9 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
-import { useTranslation } from "react-i18next";
 import { Link } from "@tanstack/react-router";
-import { useDirection } from "@/hooks/use-direction";
+import { t } from "i18next";
+import { isRTL } from "@/lib/utils";
 
 export function NavMain({
   items,
@@ -33,9 +33,6 @@ export function NavMain({
     }[];
   }[];
 }) {
-  const { t } = useTranslation();
-  const isRTL = useDirection();
-
   const groupedItems = items.reduce<Record<string, typeof items>>(
     (acc, item) => {
       const group = item.group || "general";
@@ -67,7 +64,7 @@ export function NavMain({
                         <span>{t(item.title)}</span>
                         <ChevronRight
                           className={`ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90 ${
-                            isRTL ? "rotate-180" : ""
+                            isRTL() ? "rotate-180" : ""
                           }`}
                         />
                       </SidebarMenuButton>
@@ -77,7 +74,18 @@ export function NavMain({
                         {item.items.map((subItem) => (
                           <SidebarMenuSubItem key={subItem.title}>
                             <SidebarMenuSubButton asChild>
-                              <Link to={`/dashboard/${item.url + subItem.url}`}>
+                              <Link
+                                to={
+                                  `/dashboard/${item.url}${subItem.url}` as string
+                                }
+                                activeProps={{
+                                  className:
+                                    "bg-primary text-white dark:text-black",
+                                }}
+                                activeOptions={{
+                                  exact: true,
+                                }}
+                              >
                                 {t(subItem.title)}
                               </Link>
                             </SidebarMenuSubButton>
@@ -91,8 +99,14 @@ export function NavMain({
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton tooltip={item.title} asChild>
                     <Link
-                      to={`/dashboard/${item.url}`}
+                      to={`/dashboard/${item.url}` as string}
                       className="flex items-center gap-2"
+                      activeProps={{
+                        className: "bg-primary text-white dark:text-black",
+                      }}
+                      activeOptions={{
+                        exact: true,
+                      }}
                     >
                       {item.icon && <item.icon />}
                       <span>{t(item.title)}</span>

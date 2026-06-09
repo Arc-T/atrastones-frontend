@@ -5,6 +5,7 @@ const resources = {
   en: {
     translation: {
       direction: "ltr",
+      select: "select",
       dashboard: "Dashboard",
       profile: "Profile",
       settings: "Settings",
@@ -17,6 +18,7 @@ const resources = {
       products: "Products",
       orders: "Orders",
       search: "Search...",
+      failed_to_fetch: "Failed to fetch data",
       fullscreen: "Fullscreen",
       language: "Language",
       change_language: "Change Language",
@@ -110,6 +112,7 @@ const resources = {
       finish: "Finish",
       gallery: "Gallery",
       select_all: "Select All",
+      validating: "Validating data ....",
       deselect_all: "Deselect All",
       selected: "selected",
       bulk_actions: "Bulk Actions",
@@ -150,8 +153,11 @@ const resources = {
   fa: {
     translation: {
       direction: "rtl",
+      select: "انتخاب کنید",
       dashboard: "داشبورد",
       profile: "پروفایل",
+      failed_to_fetch: "خطا در دریافت اطلاعات",
+      validating: "... درحال اعتبار سنجی اطلاعات",
       settings: "تنظیمات",
       categories: "دسته‌بندی‌ها",
       reset: "بازنشانی",

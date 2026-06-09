@@ -9,130 +9,172 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as DashboardRouteImport } from './routes/dashboard'
-import { Route as LoginIndexRouteImport } from './routes/login/index'
-import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
-import { Route as DashboardTagsIndexRouteImport } from './routes/dashboard/tags/index'
-import { Route as DashboardSettingsIndexRouteImport } from './routes/dashboard/settings/index'
-import { Route as DashboardServicesIndexRouteImport } from './routes/dashboard/services/index'
-import { Route as DashboardProfileIndexRouteImport } from './routes/dashboard/profile/index'
-import { Route as DashboardProductsIndexRouteImport } from './routes/dashboard/products/index'
-import { Route as DashboardOrdersIndexRouteImport } from './routes/dashboard/orders/index'
-import { Route as DashboardDiscountsIndexRouteImport } from './routes/dashboard/discounts/index'
-import { Route as DashboardCategoriesIndexRouteImport } from './routes/dashboard/categories/index'
-import { Route as DashboardAttributesIndexRouteImport } from './routes/dashboard/attributes/index'
+import { Route as anonymousLoginRouteImport } from './routes/(anonymous)/login'
+import { Route as anonymousForget_passowrdRouteImport } from './routes/(anonymous)/forget_passowrd'
+import { Route as authenticatedDashboardRouteRouteImport } from './routes/(authenticated)/dashboard/route'
+import { Route as authenticatedDashboardIndexRouteImport } from './routes/(authenticated)/dashboard/index'
+import { Route as authenticatedDashboardTagsIndexRouteImport } from './routes/(authenticated)/dashboard/tags/index'
+import { Route as authenticatedDashboardSettingsIndexRouteImport } from './routes/(authenticated)/dashboard/settings/index'
+import { Route as authenticatedDashboardServicesIndexRouteImport } from './routes/(authenticated)/dashboard/services/index'
+import { Route as authenticatedDashboardProfileIndexRouteImport } from './routes/(authenticated)/dashboard/profile/index'
+import { Route as authenticatedDashboardProductsIndexRouteImport } from './routes/(authenticated)/dashboard/products/index'
+import { Route as authenticatedDashboardOrdersIndexRouteImport } from './routes/(authenticated)/dashboard/orders/index'
+import { Route as authenticatedDashboardDiscountsIndexRouteImport } from './routes/(authenticated)/dashboard/discounts/index'
+import { Route as authenticatedDashboardCategoriesIndexRouteImport } from './routes/(authenticated)/dashboard/categories/index'
+import { Route as authenticatedDashboardAttributesIndexRouteImport } from './routes/(authenticated)/dashboard/attributes/index'
+import { Route as authenticatedDashboardAttributesEditRouteImport } from './routes/(authenticated)/dashboard/attributes/edit'
+import { Route as authenticatedDashboardAttributesAddRouteImport } from './routes/(authenticated)/dashboard/attributes/add'
 
-const DashboardRoute = DashboardRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
+const anonymousLoginRoute = anonymousLoginRouteImport.update({
+  id: '/(anonymous)/login',
+  path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
-const LoginIndexRoute = LoginIndexRouteImport.update({
-  id: '/login/',
-  path: '/login/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DashboardIndexRoute = DashboardIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => DashboardRoute,
-} as any)
-const DashboardTagsIndexRoute = DashboardTagsIndexRouteImport.update({
-  id: '/tags/',
-  path: '/tags/',
-  getParentRoute: () => DashboardRoute,
-} as any)
-const DashboardSettingsIndexRoute = DashboardSettingsIndexRouteImport.update({
-  id: '/settings/',
-  path: '/settings/',
-  getParentRoute: () => DashboardRoute,
-} as any)
-const DashboardServicesIndexRoute = DashboardServicesIndexRouteImport.update({
-  id: '/services/',
-  path: '/services/',
-  getParentRoute: () => DashboardRoute,
-} as any)
-const DashboardProfileIndexRoute = DashboardProfileIndexRouteImport.update({
-  id: '/profile/',
-  path: '/profile/',
-  getParentRoute: () => DashboardRoute,
-} as any)
-const DashboardProductsIndexRoute = DashboardProductsIndexRouteImport.update({
-  id: '/products/',
-  path: '/products/',
-  getParentRoute: () => DashboardRoute,
-} as any)
-const DashboardOrdersIndexRoute = DashboardOrdersIndexRouteImport.update({
-  id: '/orders/',
-  path: '/orders/',
-  getParentRoute: () => DashboardRoute,
-} as any)
-const DashboardDiscountsIndexRoute = DashboardDiscountsIndexRouteImport.update({
-  id: '/discounts/',
-  path: '/discounts/',
-  getParentRoute: () => DashboardRoute,
-} as any)
-const DashboardCategoriesIndexRoute =
-  DashboardCategoriesIndexRouteImport.update({
+const anonymousForget_passowrdRoute =
+  anonymousForget_passowrdRouteImport.update({
+    id: '/(anonymous)/forget_passowrd',
+    path: '/forget_passowrd',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const authenticatedDashboardRouteRoute =
+  authenticatedDashboardRouteRouteImport.update({
+    id: '/(authenticated)/dashboard',
+    path: '/dashboard',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const authenticatedDashboardIndexRoute =
+  authenticatedDashboardIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => authenticatedDashboardRouteRoute,
+  } as any)
+const authenticatedDashboardTagsIndexRoute =
+  authenticatedDashboardTagsIndexRouteImport.update({
+    id: '/tags/',
+    path: '/tags/',
+    getParentRoute: () => authenticatedDashboardRouteRoute,
+  } as any)
+const authenticatedDashboardSettingsIndexRoute =
+  authenticatedDashboardSettingsIndexRouteImport.update({
+    id: '/settings/',
+    path: '/settings/',
+    getParentRoute: () => authenticatedDashboardRouteRoute,
+  } as any)
+const authenticatedDashboardServicesIndexRoute =
+  authenticatedDashboardServicesIndexRouteImport.update({
+    id: '/services/',
+    path: '/services/',
+    getParentRoute: () => authenticatedDashboardRouteRoute,
+  } as any)
+const authenticatedDashboardProfileIndexRoute =
+  authenticatedDashboardProfileIndexRouteImport.update({
+    id: '/profile/',
+    path: '/profile/',
+    getParentRoute: () => authenticatedDashboardRouteRoute,
+  } as any)
+const authenticatedDashboardProductsIndexRoute =
+  authenticatedDashboardProductsIndexRouteImport.update({
+    id: '/products/',
+    path: '/products/',
+    getParentRoute: () => authenticatedDashboardRouteRoute,
+  } as any)
+const authenticatedDashboardOrdersIndexRoute =
+  authenticatedDashboardOrdersIndexRouteImport.update({
+    id: '/orders/',
+    path: '/orders/',
+    getParentRoute: () => authenticatedDashboardRouteRoute,
+  } as any)
+const authenticatedDashboardDiscountsIndexRoute =
+  authenticatedDashboardDiscountsIndexRouteImport.update({
+    id: '/discounts/',
+    path: '/discounts/',
+    getParentRoute: () => authenticatedDashboardRouteRoute,
+  } as any)
+const authenticatedDashboardCategoriesIndexRoute =
+  authenticatedDashboardCategoriesIndexRouteImport.update({
     id: '/categories/',
     path: '/categories/',
-    getParentRoute: () => DashboardRoute,
+    getParentRoute: () => authenticatedDashboardRouteRoute,
   } as any)
-const DashboardAttributesIndexRoute =
-  DashboardAttributesIndexRouteImport.update({
+const authenticatedDashboardAttributesIndexRoute =
+  authenticatedDashboardAttributesIndexRouteImport.update({
     id: '/attributes/',
     path: '/attributes/',
-    getParentRoute: () => DashboardRoute,
+    getParentRoute: () => authenticatedDashboardRouteRoute,
+  } as any)
+const authenticatedDashboardAttributesEditRoute =
+  authenticatedDashboardAttributesEditRouteImport.update({
+    id: '/attributes/edit',
+    path: '/attributes/edit',
+    getParentRoute: () => authenticatedDashboardRouteRoute,
+  } as any)
+const authenticatedDashboardAttributesAddRoute =
+  authenticatedDashboardAttributesAddRouteImport.update({
+    id: '/attributes/add',
+    path: '/attributes/add',
+    getParentRoute: () => authenticatedDashboardRouteRoute,
   } as any)
 
 export interface FileRoutesByFullPath {
-  '/dashboard': typeof DashboardRouteWithChildren
-  '/dashboard/': typeof DashboardIndexRoute
-  '/login/': typeof LoginIndexRoute
-  '/dashboard/attributes/': typeof DashboardAttributesIndexRoute
-  '/dashboard/categories/': typeof DashboardCategoriesIndexRoute
-  '/dashboard/discounts/': typeof DashboardDiscountsIndexRoute
-  '/dashboard/orders/': typeof DashboardOrdersIndexRoute
-  '/dashboard/products/': typeof DashboardProductsIndexRoute
-  '/dashboard/profile/': typeof DashboardProfileIndexRoute
-  '/dashboard/services/': typeof DashboardServicesIndexRoute
-  '/dashboard/settings/': typeof DashboardSettingsIndexRoute
-  '/dashboard/tags/': typeof DashboardTagsIndexRoute
+  '/dashboard': typeof authenticatedDashboardRouteRouteWithChildren
+  '/forget_passowrd': typeof anonymousForget_passowrdRoute
+  '/login': typeof anonymousLoginRoute
+  '/dashboard/': typeof authenticatedDashboardIndexRoute
+  '/dashboard/attributes/add': typeof authenticatedDashboardAttributesAddRoute
+  '/dashboard/attributes/edit': typeof authenticatedDashboardAttributesEditRoute
+  '/dashboard/attributes/': typeof authenticatedDashboardAttributesIndexRoute
+  '/dashboard/categories/': typeof authenticatedDashboardCategoriesIndexRoute
+  '/dashboard/discounts/': typeof authenticatedDashboardDiscountsIndexRoute
+  '/dashboard/orders/': typeof authenticatedDashboardOrdersIndexRoute
+  '/dashboard/products/': typeof authenticatedDashboardProductsIndexRoute
+  '/dashboard/profile/': typeof authenticatedDashboardProfileIndexRoute
+  '/dashboard/services/': typeof authenticatedDashboardServicesIndexRoute
+  '/dashboard/settings/': typeof authenticatedDashboardSettingsIndexRoute
+  '/dashboard/tags/': typeof authenticatedDashboardTagsIndexRoute
 }
 export interface FileRoutesByTo {
-  '/dashboard': typeof DashboardIndexRoute
-  '/login': typeof LoginIndexRoute
-  '/dashboard/attributes': typeof DashboardAttributesIndexRoute
-  '/dashboard/categories': typeof DashboardCategoriesIndexRoute
-  '/dashboard/discounts': typeof DashboardDiscountsIndexRoute
-  '/dashboard/orders': typeof DashboardOrdersIndexRoute
-  '/dashboard/products': typeof DashboardProductsIndexRoute
-  '/dashboard/profile': typeof DashboardProfileIndexRoute
-  '/dashboard/services': typeof DashboardServicesIndexRoute
-  '/dashboard/settings': typeof DashboardSettingsIndexRoute
-  '/dashboard/tags': typeof DashboardTagsIndexRoute
+  '/forget_passowrd': typeof anonymousForget_passowrdRoute
+  '/login': typeof anonymousLoginRoute
+  '/dashboard': typeof authenticatedDashboardIndexRoute
+  '/dashboard/attributes/add': typeof authenticatedDashboardAttributesAddRoute
+  '/dashboard/attributes/edit': typeof authenticatedDashboardAttributesEditRoute
+  '/dashboard/attributes': typeof authenticatedDashboardAttributesIndexRoute
+  '/dashboard/categories': typeof authenticatedDashboardCategoriesIndexRoute
+  '/dashboard/discounts': typeof authenticatedDashboardDiscountsIndexRoute
+  '/dashboard/orders': typeof authenticatedDashboardOrdersIndexRoute
+  '/dashboard/products': typeof authenticatedDashboardProductsIndexRoute
+  '/dashboard/profile': typeof authenticatedDashboardProfileIndexRoute
+  '/dashboard/services': typeof authenticatedDashboardServicesIndexRoute
+  '/dashboard/settings': typeof authenticatedDashboardSettingsIndexRoute
+  '/dashboard/tags': typeof authenticatedDashboardTagsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/dashboard': typeof DashboardRouteWithChildren
-  '/dashboard/': typeof DashboardIndexRoute
-  '/login/': typeof LoginIndexRoute
-  '/dashboard/attributes/': typeof DashboardAttributesIndexRoute
-  '/dashboard/categories/': typeof DashboardCategoriesIndexRoute
-  '/dashboard/discounts/': typeof DashboardDiscountsIndexRoute
-  '/dashboard/orders/': typeof DashboardOrdersIndexRoute
-  '/dashboard/products/': typeof DashboardProductsIndexRoute
-  '/dashboard/profile/': typeof DashboardProfileIndexRoute
-  '/dashboard/services/': typeof DashboardServicesIndexRoute
-  '/dashboard/settings/': typeof DashboardSettingsIndexRoute
-  '/dashboard/tags/': typeof DashboardTagsIndexRoute
+  '/(authenticated)/dashboard': typeof authenticatedDashboardRouteRouteWithChildren
+  '/(anonymous)/forget_passowrd': typeof anonymousForget_passowrdRoute
+  '/(anonymous)/login': typeof anonymousLoginRoute
+  '/(authenticated)/dashboard/': typeof authenticatedDashboardIndexRoute
+  '/(authenticated)/dashboard/attributes/add': typeof authenticatedDashboardAttributesAddRoute
+  '/(authenticated)/dashboard/attributes/edit': typeof authenticatedDashboardAttributesEditRoute
+  '/(authenticated)/dashboard/attributes/': typeof authenticatedDashboardAttributesIndexRoute
+  '/(authenticated)/dashboard/categories/': typeof authenticatedDashboardCategoriesIndexRoute
+  '/(authenticated)/dashboard/discounts/': typeof authenticatedDashboardDiscountsIndexRoute
+  '/(authenticated)/dashboard/orders/': typeof authenticatedDashboardOrdersIndexRoute
+  '/(authenticated)/dashboard/products/': typeof authenticatedDashboardProductsIndexRoute
+  '/(authenticated)/dashboard/profile/': typeof authenticatedDashboardProfileIndexRoute
+  '/(authenticated)/dashboard/services/': typeof authenticatedDashboardServicesIndexRoute
+  '/(authenticated)/dashboard/settings/': typeof authenticatedDashboardSettingsIndexRoute
+  '/(authenticated)/dashboard/tags/': typeof authenticatedDashboardTagsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/dashboard'
+    | '/forget_passowrd'
+    | '/login'
     | '/dashboard/'
-    | '/login/'
+    | '/dashboard/attributes/add'
+    | '/dashboard/attributes/edit'
     | '/dashboard/attributes/'
     | '/dashboard/categories/'
     | '/dashboard/discounts/'
@@ -144,8 +186,11 @@ export interface FileRouteTypes {
     | '/dashboard/tags/'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/dashboard'
+    | '/forget_passowrd'
     | '/login'
+    | '/dashboard'
+    | '/dashboard/attributes/add'
+    | '/dashboard/attributes/edit'
     | '/dashboard/attributes'
     | '/dashboard/categories'
     | '/dashboard/discounts'
@@ -157,147 +202,190 @@ export interface FileRouteTypes {
     | '/dashboard/tags'
   id:
     | '__root__'
-    | '/dashboard'
-    | '/dashboard/'
-    | '/login/'
-    | '/dashboard/attributes/'
-    | '/dashboard/categories/'
-    | '/dashboard/discounts/'
-    | '/dashboard/orders/'
-    | '/dashboard/products/'
-    | '/dashboard/profile/'
-    | '/dashboard/services/'
-    | '/dashboard/settings/'
-    | '/dashboard/tags/'
+    | '/(authenticated)/dashboard'
+    | '/(anonymous)/forget_passowrd'
+    | '/(anonymous)/login'
+    | '/(authenticated)/dashboard/'
+    | '/(authenticated)/dashboard/attributes/add'
+    | '/(authenticated)/dashboard/attributes/edit'
+    | '/(authenticated)/dashboard/attributes/'
+    | '/(authenticated)/dashboard/categories/'
+    | '/(authenticated)/dashboard/discounts/'
+    | '/(authenticated)/dashboard/orders/'
+    | '/(authenticated)/dashboard/products/'
+    | '/(authenticated)/dashboard/profile/'
+    | '/(authenticated)/dashboard/services/'
+    | '/(authenticated)/dashboard/settings/'
+    | '/(authenticated)/dashboard/tags/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  DashboardRoute: typeof DashboardRouteWithChildren
-  LoginIndexRoute: typeof LoginIndexRoute
+  authenticatedDashboardRouteRoute: typeof authenticatedDashboardRouteRouteWithChildren
+  anonymousForget_passowrdRoute: typeof anonymousForget_passowrdRoute
+  anonymousLoginRoute: typeof anonymousLoginRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/dashboard': {
-      id: '/dashboard'
+    '/(anonymous)/login': {
+      id: '/(anonymous)/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof anonymousLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(anonymous)/forget_passowrd': {
+      id: '/(anonymous)/forget_passowrd'
+      path: '/forget_passowrd'
+      fullPath: '/forget_passowrd'
+      preLoaderRoute: typeof anonymousForget_passowrdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(authenticated)/dashboard': {
+      id: '/(authenticated)/dashboard'
       path: '/dashboard'
       fullPath: '/dashboard'
-      preLoaderRoute: typeof DashboardRouteImport
+      preLoaderRoute: typeof authenticatedDashboardRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/login/': {
-      id: '/login/'
-      path: '/login'
-      fullPath: '/login/'
-      preLoaderRoute: typeof LoginIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/dashboard/': {
-      id: '/dashboard/'
+    '/(authenticated)/dashboard/': {
+      id: '/(authenticated)/dashboard/'
       path: '/'
       fullPath: '/dashboard/'
-      preLoaderRoute: typeof DashboardIndexRouteImport
-      parentRoute: typeof DashboardRoute
+      preLoaderRoute: typeof authenticatedDashboardIndexRouteImport
+      parentRoute: typeof authenticatedDashboardRouteRoute
     }
-    '/dashboard/tags/': {
-      id: '/dashboard/tags/'
+    '/(authenticated)/dashboard/tags/': {
+      id: '/(authenticated)/dashboard/tags/'
       path: '/tags'
       fullPath: '/dashboard/tags/'
-      preLoaderRoute: typeof DashboardTagsIndexRouteImport
-      parentRoute: typeof DashboardRoute
+      preLoaderRoute: typeof authenticatedDashboardTagsIndexRouteImport
+      parentRoute: typeof authenticatedDashboardRouteRoute
     }
-    '/dashboard/settings/': {
-      id: '/dashboard/settings/'
+    '/(authenticated)/dashboard/settings/': {
+      id: '/(authenticated)/dashboard/settings/'
       path: '/settings'
       fullPath: '/dashboard/settings/'
-      preLoaderRoute: typeof DashboardSettingsIndexRouteImport
-      parentRoute: typeof DashboardRoute
+      preLoaderRoute: typeof authenticatedDashboardSettingsIndexRouteImport
+      parentRoute: typeof authenticatedDashboardRouteRoute
     }
-    '/dashboard/services/': {
-      id: '/dashboard/services/'
+    '/(authenticated)/dashboard/services/': {
+      id: '/(authenticated)/dashboard/services/'
       path: '/services'
       fullPath: '/dashboard/services/'
-      preLoaderRoute: typeof DashboardServicesIndexRouteImport
-      parentRoute: typeof DashboardRoute
+      preLoaderRoute: typeof authenticatedDashboardServicesIndexRouteImport
+      parentRoute: typeof authenticatedDashboardRouteRoute
     }
-    '/dashboard/profile/': {
-      id: '/dashboard/profile/'
+    '/(authenticated)/dashboard/profile/': {
+      id: '/(authenticated)/dashboard/profile/'
       path: '/profile'
       fullPath: '/dashboard/profile/'
-      preLoaderRoute: typeof DashboardProfileIndexRouteImport
-      parentRoute: typeof DashboardRoute
+      preLoaderRoute: typeof authenticatedDashboardProfileIndexRouteImport
+      parentRoute: typeof authenticatedDashboardRouteRoute
     }
-    '/dashboard/products/': {
-      id: '/dashboard/products/'
+    '/(authenticated)/dashboard/products/': {
+      id: '/(authenticated)/dashboard/products/'
       path: '/products'
       fullPath: '/dashboard/products/'
-      preLoaderRoute: typeof DashboardProductsIndexRouteImport
-      parentRoute: typeof DashboardRoute
+      preLoaderRoute: typeof authenticatedDashboardProductsIndexRouteImport
+      parentRoute: typeof authenticatedDashboardRouteRoute
     }
-    '/dashboard/orders/': {
-      id: '/dashboard/orders/'
+    '/(authenticated)/dashboard/orders/': {
+      id: '/(authenticated)/dashboard/orders/'
       path: '/orders'
       fullPath: '/dashboard/orders/'
-      preLoaderRoute: typeof DashboardOrdersIndexRouteImport
-      parentRoute: typeof DashboardRoute
+      preLoaderRoute: typeof authenticatedDashboardOrdersIndexRouteImport
+      parentRoute: typeof authenticatedDashboardRouteRoute
     }
-    '/dashboard/discounts/': {
-      id: '/dashboard/discounts/'
+    '/(authenticated)/dashboard/discounts/': {
+      id: '/(authenticated)/dashboard/discounts/'
       path: '/discounts'
       fullPath: '/dashboard/discounts/'
-      preLoaderRoute: typeof DashboardDiscountsIndexRouteImport
-      parentRoute: typeof DashboardRoute
+      preLoaderRoute: typeof authenticatedDashboardDiscountsIndexRouteImport
+      parentRoute: typeof authenticatedDashboardRouteRoute
     }
-    '/dashboard/categories/': {
-      id: '/dashboard/categories/'
+    '/(authenticated)/dashboard/categories/': {
+      id: '/(authenticated)/dashboard/categories/'
       path: '/categories'
       fullPath: '/dashboard/categories/'
-      preLoaderRoute: typeof DashboardCategoriesIndexRouteImport
-      parentRoute: typeof DashboardRoute
+      preLoaderRoute: typeof authenticatedDashboardCategoriesIndexRouteImport
+      parentRoute: typeof authenticatedDashboardRouteRoute
     }
-    '/dashboard/attributes/': {
-      id: '/dashboard/attributes/'
+    '/(authenticated)/dashboard/attributes/': {
+      id: '/(authenticated)/dashboard/attributes/'
       path: '/attributes'
       fullPath: '/dashboard/attributes/'
-      preLoaderRoute: typeof DashboardAttributesIndexRouteImport
-      parentRoute: typeof DashboardRoute
+      preLoaderRoute: typeof authenticatedDashboardAttributesIndexRouteImport
+      parentRoute: typeof authenticatedDashboardRouteRoute
+    }
+    '/(authenticated)/dashboard/attributes/edit': {
+      id: '/(authenticated)/dashboard/attributes/edit'
+      path: '/attributes/edit'
+      fullPath: '/dashboard/attributes/edit'
+      preLoaderRoute: typeof authenticatedDashboardAttributesEditRouteImport
+      parentRoute: typeof authenticatedDashboardRouteRoute
+    }
+    '/(authenticated)/dashboard/attributes/add': {
+      id: '/(authenticated)/dashboard/attributes/add'
+      path: '/attributes/add'
+      fullPath: '/dashboard/attributes/add'
+      preLoaderRoute: typeof authenticatedDashboardAttributesAddRouteImport
+      parentRoute: typeof authenticatedDashboardRouteRoute
     }
   }
 }
 
-interface DashboardRouteChildren {
-  DashboardIndexRoute: typeof DashboardIndexRoute
-  DashboardAttributesIndexRoute: typeof DashboardAttributesIndexRoute
-  DashboardCategoriesIndexRoute: typeof DashboardCategoriesIndexRoute
-  DashboardDiscountsIndexRoute: typeof DashboardDiscountsIndexRoute
-  DashboardOrdersIndexRoute: typeof DashboardOrdersIndexRoute
-  DashboardProductsIndexRoute: typeof DashboardProductsIndexRoute
-  DashboardProfileIndexRoute: typeof DashboardProfileIndexRoute
-  DashboardServicesIndexRoute: typeof DashboardServicesIndexRoute
-  DashboardSettingsIndexRoute: typeof DashboardSettingsIndexRoute
-  DashboardTagsIndexRoute: typeof DashboardTagsIndexRoute
+interface authenticatedDashboardRouteRouteChildren {
+  authenticatedDashboardIndexRoute: typeof authenticatedDashboardIndexRoute
+  authenticatedDashboardAttributesAddRoute: typeof authenticatedDashboardAttributesAddRoute
+  authenticatedDashboardAttributesEditRoute: typeof authenticatedDashboardAttributesEditRoute
+  authenticatedDashboardAttributesIndexRoute: typeof authenticatedDashboardAttributesIndexRoute
+  authenticatedDashboardCategoriesIndexRoute: typeof authenticatedDashboardCategoriesIndexRoute
+  authenticatedDashboardDiscountsIndexRoute: typeof authenticatedDashboardDiscountsIndexRoute
+  authenticatedDashboardOrdersIndexRoute: typeof authenticatedDashboardOrdersIndexRoute
+  authenticatedDashboardProductsIndexRoute: typeof authenticatedDashboardProductsIndexRoute
+  authenticatedDashboardProfileIndexRoute: typeof authenticatedDashboardProfileIndexRoute
+  authenticatedDashboardServicesIndexRoute: typeof authenticatedDashboardServicesIndexRoute
+  authenticatedDashboardSettingsIndexRoute: typeof authenticatedDashboardSettingsIndexRoute
+  authenticatedDashboardTagsIndexRoute: typeof authenticatedDashboardTagsIndexRoute
 }
 
-const DashboardRouteChildren: DashboardRouteChildren = {
-  DashboardIndexRoute: DashboardIndexRoute,
-  DashboardAttributesIndexRoute: DashboardAttributesIndexRoute,
-  DashboardCategoriesIndexRoute: DashboardCategoriesIndexRoute,
-  DashboardDiscountsIndexRoute: DashboardDiscountsIndexRoute,
-  DashboardOrdersIndexRoute: DashboardOrdersIndexRoute,
-  DashboardProductsIndexRoute: DashboardProductsIndexRoute,
-  DashboardProfileIndexRoute: DashboardProfileIndexRoute,
-  DashboardServicesIndexRoute: DashboardServicesIndexRoute,
-  DashboardSettingsIndexRoute: DashboardSettingsIndexRoute,
-  DashboardTagsIndexRoute: DashboardTagsIndexRoute,
-}
+const authenticatedDashboardRouteRouteChildren: authenticatedDashboardRouteRouteChildren =
+  {
+    authenticatedDashboardIndexRoute: authenticatedDashboardIndexRoute,
+    authenticatedDashboardAttributesAddRoute:
+      authenticatedDashboardAttributesAddRoute,
+    authenticatedDashboardAttributesEditRoute:
+      authenticatedDashboardAttributesEditRoute,
+    authenticatedDashboardAttributesIndexRoute:
+      authenticatedDashboardAttributesIndexRoute,
+    authenticatedDashboardCategoriesIndexRoute:
+      authenticatedDashboardCategoriesIndexRoute,
+    authenticatedDashboardDiscountsIndexRoute:
+      authenticatedDashboardDiscountsIndexRoute,
+    authenticatedDashboardOrdersIndexRoute:
+      authenticatedDashboardOrdersIndexRoute,
+    authenticatedDashboardProductsIndexRoute:
+      authenticatedDashboardProductsIndexRoute,
+    authenticatedDashboardProfileIndexRoute:
+      authenticatedDashboardProfileIndexRoute,
+    authenticatedDashboardServicesIndexRoute:
+      authenticatedDashboardServicesIndexRoute,
+    authenticatedDashboardSettingsIndexRoute:
+      authenticatedDashboardSettingsIndexRoute,
+    authenticatedDashboardTagsIndexRoute: authenticatedDashboardTagsIndexRoute,
+  }
 
-const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
-  DashboardRouteChildren,
-)
+const authenticatedDashboardRouteRouteWithChildren =
+  authenticatedDashboardRouteRoute._addFileChildren(
+    authenticatedDashboardRouteRouteChildren,
+  )
 
 const rootRouteChildren: RootRouteChildren = {
-  DashboardRoute: DashboardRouteWithChildren,
-  LoginIndexRoute: LoginIndexRoute,
+  authenticatedDashboardRouteRoute:
+    authenticatedDashboardRouteRouteWithChildren,
+  anonymousForget_passowrdRoute: anonymousForget_passowrdRoute,
+  anonymousLoginRoute: anonymousLoginRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

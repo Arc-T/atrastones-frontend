@@ -8,44 +8,58 @@ import { toQueryString } from "@/lib/utils";
 
 export const local = {
   media: {
-    showDraft: (mediaName: string, productId?: number) => productId ? `http://localhost:8080/media/draft/products/${productId}/${mediaName}` : `http://localhost:8080/media/draft/${mediaName}`,
-    showProductMedia: (productId: number, mediaName: string) => `http://localhost:8080/media/products/${productId}/${mediaName}`,
+    showDraft: (mediaName: string, productId?: number) =>
+      productId
+        ? `http://localhost:8080/media/draft/products/${productId}/${mediaName}`
+        : `http://localhost:8080/media/draft/${mediaName}`,
+    showProductMedia: (productId: number, mediaName: string) =>
+      `http://localhost:8080/media/products/${productId}/${mediaName}`,
   },
 };
 
 export const api = {
   authentication: {
     validate: "/authentication/validate",
-    login: "/authentication"
+    logout: "/authentication/logout",
+    login: "/authentication",
   },
   products: {
     create: "/products",
     get: (id: number) => `/products/${id}`,
-    list: (filter?: Partial<ProductFilter>) => `/products${toQueryString(filter)}`,
+    list: (filter?: Partial<ProductFilter>) =>
+      `/products${toQueryString(filter)}`,
     details: (id: number) => `/products/${id}`,
     update: (id: number) => `/products/${id}`,
   },
   productMedia: {
     delete: (id: number) => `/product-media/${id}`,
-    showProductMedia: (productId: number) => `/product-media/products/${productId}`,
-    draft: (productId?: number) => productId ? `/product-media/draft/${productId}` : `/product-media/draft`,
-    deleteDraft: (mediaName: string, productId?: number) => productId ? `/product-media/draft/${productId}/${mediaName}` : `/product-media/draft/${mediaName}`,
+    showProductMedia: (productId: number) =>
+      `/product-media/products/${productId}`,
+    draft: (productId?: number) =>
+      productId ? `/product-media/draft/${productId}` : `/product-media/draft`,
+    deleteDraft: (mediaName: string, productId?: number) =>
+      productId
+        ? `/product-media/draft/${productId}/${mediaName}`
+        : `/product-media/draft/${mediaName}`,
   },
   attributes: {
-    list: (filter?: Partial<AttributeFilter>) => `/attributes${toQueryString(filter)}`,
+    list: (filter?: Partial<AttributeFilter>) =>
+      `/attributes${toQueryString(filter)}`,
     update: (id: number) => `/attributes/${id}`,
     details: (id: number) => `/attributes/${id}`,
     delete: (id: number) => `/attributes/${id}`,
     create: "/attributes",
   },
   categories: {
-    list: (filter?: Partial<CategoryFilter>) => `/categories${toQueryString(filter)}`,
+    list: (filter?: Partial<CategoryFilter>) =>
+      `/categories${toQueryString(filter)}`,
     update: (id: number) => `/categories/${id}`,
     details: (id: number) => `/categories/${id}`,
     create: "/categories",
   },
   services: {
-    list: (filter?: Partial<ServiceFilter>) => `/services${toQueryString(filter)}`,
+    list: (filter?: Partial<ServiceFilter>) =>
+      `/services${toQueryString(filter)}`,
     update: (id: number) => `/services/${id}`,
     details: (id: number) => `/services/${id}`,
     create: "/services",
@@ -55,7 +69,8 @@ export const api = {
     details: (id: number) => `/orders/${id}`,
   },
   serviceGroups: {
-    list: (filter?: Partial<ServiceGroupFilter>) => `/service-groups${toQueryString(filter)}`,
+    list: (filter?: Partial<ServiceGroupFilter>) =>
+      `/service-groups${toQueryString(filter)}`,
     update: (id: number) => `/service-groups/${id}`,
     details: (id: number) => `/service-groups/${id}`,
     create: "/service-groups",

@@ -1,4 +1,4 @@
-import type { Pagination } from "./page";
+import type { PaginatedRequest } from "./page";
 
 export interface Order {
     id: number;
@@ -10,7 +10,7 @@ export interface Order {
     updatedAt: string;
 }
 
-export interface OrderFilter extends Pagination {
+export interface OrderFilter extends PaginatedRequest {
     id: number;
     name: string;
 }

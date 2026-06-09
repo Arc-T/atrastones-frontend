@@ -1,7 +1,7 @@
 import {zodResolver} from "@hookform/resolvers/zod";
 import {useForm} from "react-hook-form";
 import z from "zod";
-import type { Pagination } from "./page";
+import type { PaginatedRequest } from "./page";
 
 export interface Service {
     id: number;
@@ -13,7 +13,7 @@ export interface Service {
     updatedAt: string;
 }
 
-export interface ServiceFilter extends Pagination {
+export interface ServiceFilter extends PaginatedRequest {
     name: string;
 }
 

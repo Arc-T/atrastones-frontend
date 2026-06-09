@@ -1,4 +1,13 @@
-import { useState, useMemo, type ReactNode } from "react";
+import { useState, useMemo } from "react";
+import {
+  flexRender,
+  getCoreRowModel,
+  useReactTable,
+  getSortedRowModel,
+  type ColumnDef,
+  type SortingState,
+  type ColumnFiltersState,
+} from "@tanstack/react-table";
 import { ArrowUpDown, ArrowUp, ArrowDown, Package } from "lucide-react";
 import { motion } from "motion/react";
 import { useTranslation } from "react-i18next";
@@ -11,82 +20,51 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Skeleton } from "@/components/ui/skeleton";
-import type { ColumnDef } from "@tanstack/react-table";
-import FilterBar from "./filter";
 import Pagination from "./pagination";
+import type { PaginatedResponse } from "@/types/page";
 
-interface DataTableProps<TData> {
-  columns: ColumnDef<TData>[];
-  data: TData[];
+interface DataTableProps<TData, TValue> {
+  columns: ColumnDef<TData, TValue>[];
+  data?: PaginatedResponse<TData>;
   isLoading?: boolean;
   onRowClick?: (row: TData) => void;
-  searchable?: boolean;
-  addLink: string;
   pageSize?: number;
-  onSearch?: (value: string) => void;
-  filterBarChildren?: ReactNode;
-  activeFilterCount?: number;
-  onClearFilters?: () => void;
-  actions?: ReactNode;
-  // Custom filter function for complex filtering
-  customFilter?: (data: TData[]) => TData[];
 }
 
-export default function DataTable<TData>({
+export default function DataTable<TData, TValue>({
   columns = [],
-  data = [],
+  data,
   isLoading = false,
   onRowClick,
-  addLink,
-  searchable,
   pageSize: defaultPageSize = 10,
-  onSearch,
-  filterBarChildren,
-  onClearFilters,
-  actions,
-  customFilter,
-}: DataTableProps<TData>) {
+}: DataTableProps<TData, TValue>) {
   const { t } = useTranslation();
+  const [sorting, setSorting] = useState<SortingState>([]);
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [page, setPage] = useState(0);
   const [pageSize, setPageSize] = useState(defaultPageSize);
-  const [sortConfig, setSortConfig] = useState<{
-    key: string | null;
-    dir: "asc" | "desc";
-  }>({ key: null, dir: "asc" });
 
-  const filteredData = useMemo(() => {
-    let result = [...data];
+  const tableData = useMemo(() => data?.content || [], [data]);
 
-    // Apply custom filter if provided
-    if (customFilter) {
-      result = customFilter(result);
-    }
+  const table = useReactTable({
+    data: tableData,
+    columns,
+    state: {
+      sorting,
+      columnFilters,
+    },
+    onSortingChange: setSorting,
+    onColumnFiltersChange: setColumnFilters,
+    getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    manualPagination: true,
+    pageCount: data?.page.totalPages ?? -1,
+  });
 
-    // Apply sorting
-    if (sortConfig.key) {
-      result.sort((a: any, b: any) => {
-        const aVal = a[sortConfig.key!];
-        const bVal = b[sortConfig.key!];
-        if (aVal < bVal) return sortConfig.dir === "asc" ? -1 : 1;
-        if (aVal > bVal) return sortConfig.dir === "asc" ? 1 : -1;
-        return 0;
-      });
-    }
-
-    return result;
-  }, [data, sortConfig, customFilter]);
-
-  const paginatedData = filteredData.slice(
+  const paginatedData = table.getRowModel().rows.slice(
     page * pageSize,
     (page + 1) * pageSize,
   );
-
-  const handleSort = (key: string) => {
-    setSortConfig((prev) => ({
-      key,
-      dir: prev.key === key && prev.dir === "asc" ? "desc" : "asc",
-    }));
-  };
 
   const handlePageSizeChange = (newSize: number) => {
     setPageSize(newSize);
@@ -94,52 +72,42 @@ export default function DataTable<TData>({
   };
 
   return (
-    <div className="space-y-2">
-      {/* Header row with Add button + Filter bar */}
-      <div className="flex items-center justify-start gap-4">
-        {/* Filter bar - remove any margin/padding that might affect layout */}
-        <div className="flex-1">
-          {searchable && (
-            <FilterBar onClearFilters={onClearFilters} actions={actions} addLink={""}>
-              {filterBarChildren}
-            </FilterBar>
-          )}
-        </div>
-      </div>
-
+    <>
       <div className="rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden bg-white dark:bg-slate-900">
         <div className="overflow-x-auto">
           <Table>
             <TableHeader>
-              <TableRow className="bg-slate-50/80 dark:bg-slate-800/40 hover:bg-slate-50 dark:hover:bg-slate-800/40 border-b border-slate-200 dark:border-slate-700">
-                {columns.map((col: any) => (
-                  <TableHead
-                    key={col.accessorKey || col.id}
-                    onClick={() =>
-                      col.accessorKey && handleSort(col.accessorKey)
-                    }
-                    className={`text-[11px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 whitespace-nowrap ${
-                      col.accessorKey
+              {table.getHeaderGroups().map((headerGroup) => (
+                <TableRow
+                  key={headerGroup.id}
+                  className="bg-slate-50/80 dark:bg-slate-800/40 hover:bg-slate-50 dark:hover:bg-slate-800/40 border-b border-slate-200 dark:border-slate-700"
+                >
+                  {headerGroup.headers.map((header) => (
+                    <TableHead
+                      key={header.id}
+                      className={`text-[11px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 whitespace-nowrap ${header.column.getCanSort()
                         ? "cursor-pointer select-none hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
                         : ""
-                    }`}
-                  >
-                    <div className="flex items-center gap-1">
-                      {t(col.header)}
-                      {col.accessorKey &&
-                        (sortConfig.key === col.accessorKey ? (
-                          sortConfig.dir === "asc" ? (
-                            <ArrowUp className="w-3 h-3 text-indigo-500" />
-                          ) : (
-                            <ArrowDown className="w-3 h-3 text-indigo-500" />
-                          )
-                        ) : (
-                          <ArrowUpDown className="w-3 h-3 opacity-0 group-hover:opacity-100" />
-                        ))}
-                    </div>
-                  </TableHead>
-                ))}
-              </TableRow>
+                        }`}
+                      onClick={header.column.getToggleSortingHandler()}
+                    >
+                      <div className="flex items-center gap-1">
+                        {header.isPlaceholder
+                          ? null
+                          : flexRender(
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
+                        {header.column.getCanSort() && (
+                          <SortIcon
+                            sortDirection={header.column.getIsSorted()}
+                          />
+                        )}
+                      </div>
+                    </TableHead>
+                  ))}
+                </TableRow>
+              ))}
             </TableHeader>
             <TableBody>
               {isLoading ? (
@@ -174,26 +142,28 @@ export default function DataTable<TData>({
                   </TableCell>
                 </TableRow>
               ) : (
-                paginatedData.map((row: any, i: number) => (
+                paginatedData.map((row, i) => (
                   <motion.tr
-                    key={row.id || i}
+                    key={row.id}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: i * 0.025 }}
-                    onClick={() => onRowClick?.(row)}
-                    className={`border-b border-slate-50 dark:border-slate-800/50 last:border-0 transition-colors ${
-                      onRowClick
-                        ? "cursor-pointer hover:bg-indigo-50/40 dark:hover:bg-indigo-950/20"
-                        : "hover:bg-slate-50/50 dark:hover:bg-slate-800/20"
-                    }`}
+                    onClick={() => onRowClick?.(row.original)}
+                    className={`border-b border-slate-50 dark:border-slate-800/50 last:border-0 transition-colors ${onRowClick
+                      ? "cursor-pointer hover:bg-indigo-50/40 dark:hover:bg-indigo-950/20"
+                      : "hover:bg-slate-50/50 dark:hover:bg-slate-800/20"
+                      }`}
                   >
-                    {columns.map((col: any) => (
-                      <td
-                        key={col.accessorKey || col.id}
-                        className="px-4 py-3 text-sm text-slate-700 dark:text-slate-300"
+                    {row.getVisibleCells().map((cell) => (
+                      <TableCell
+                        key={cell.id}
+                        className="text-sm text-slate-700 dark:text-slate-300"
                       >
-                        {col.cell ? col.cell(row) : row[col.accessorKey]}
-                      </td>
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
+                      </TableCell>
                     ))}
                   </motion.tr>
                 ))
@@ -206,10 +176,21 @@ export default function DataTable<TData>({
       <Pagination
         page={page}
         pageSize={pageSize}
-        totalItems={filteredData.length}
+        totalItems={tableData.length}
         onPageChange={setPage}
         onPageSizeChange={handlePageSizeChange}
       />
-    </div>
+    </>
   );
+}
+
+// Helper component for sort icons
+function SortIcon({ sortDirection }: { sortDirection: false | "asc" | "desc" }) {
+  if (sortDirection === "asc") {
+    return <ArrowUp className="w-3 h-3 text-indigo-500" />;
+  }
+  if (sortDirection === "desc") {
+    return <ArrowDown className="w-3 h-3 text-indigo-500" />;
+  }
+  return <ArrowUpDown className="w-3 h-3 opacity-0 group-hover:opacity-100" />;
 }

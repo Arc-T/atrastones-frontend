@@ -3,6 +3,11 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 export interface User {
+  name: string;
+  family_name: string;
+}
+
+export interface UserLogin {
   username: string;
   password: string;
 }

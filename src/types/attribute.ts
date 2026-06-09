@@ -1,7 +1,8 @@
 import { useForm } from "react-hook-form";
 import type { Category } from "./category";
-import type { Pagination } from "./page";
+import type { PaginatedRequest } from "./page";
 import z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 export interface Attribute {
   id: number;
@@ -15,7 +16,7 @@ export interface Attribute {
   category: Category;
 }
 
-export interface AttributeFilter extends Pagination {
+export interface AttributeFilter extends PaginatedRequest {
   name: string;
 }
 
@@ -24,25 +25,46 @@ export interface AttributeFilter extends Pagination {
 export const attributeFormSchema = z.object({
   name: z.string().min(2, { message: "نام ویژگی باید حداقل ۲ کاراکتر باشد" }),
   isFilterable: z.boolean(),
-  // categoryId: z.number({error: "انتخاب دسته‌بندی الزامی است"}).positive(),
+  categoryId: z.number({ error: "انتخاب دسته‌بندی الزامی است" }).positive(),
 });
 
-export type AttributeFormValues = z.infer<typeof attributeFormSchema>;
+export type CreateAttributeFormValues = z.infer<typeof attributeFormSchema>;
 
-export const createAttributeForm = (attribute?: Attribute) =>
-  useForm<AttributeFormValues>({
-    // resolver: zodResolver(attributeFormSchema),
+export const useCreateAttributeForm = (attribute?: Attribute) =>
+  useForm<CreateAttributeFormValues>({
+    resolver: zodResolver(attributeFormSchema),
     mode: "onSubmit",
     values: attribute
       ? {
           name: attribute.name,
-          // categoryId: attribute.categoryId,
+          categoryId: attribute.categoryId,
           isFilterable: attribute.isFilterable,
         }
       : undefined,
     defaultValues: {
       name: "",
-      // categoryId: undefined,
+      categoryId: undefined,
       isFilterable: false,
+    },
+  });
+
+// ****************** Search ******************
+
+export const attributeSearchFormSchema = z.object({
+  name: z.string().min(2, { message: "نام ویژگی باید حداقل ۲ کاراکتر باشد" }),
+  // isFilterable: z.boolean(),
+  // categoryId: z.number({error: "انتخاب دسته‌بندی الزامی است"}).positive(),
+});
+
+export type AttributeSearchFormValues = z.infer<
+  typeof attributeSearchFormSchema
+>;
+
+export const useSearchAttributeForm = () =>
+  useForm<AttributeSearchFormValues>({
+    resolver: zodResolver(attributeSearchFormSchema),
+    mode: "onChange",
+    defaultValues: {
+      name: "",
     },
   });
