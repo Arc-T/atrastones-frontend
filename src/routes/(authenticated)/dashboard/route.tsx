@@ -3,13 +3,18 @@ import { TopBar } from "@/components/layout/topbar";
 import { ThemeProvider } from "@/components/theme-provider";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { Toaster } from "@/components/ui/sonner";
-import { useDirection } from "@/hooks/use-direction";
-import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
+import {
+  createFileRoute,
+  Outlet,
+  redirect,
+  useRouterState,
+} from "@tanstack/react-router";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { UserService } from "@/services/user-service";
 import { LoadingFallback } from "../-loading";
-import { Suspense } from "react";
 import { RouteError } from "./-error";
+import { useTranslation } from "react-i18next";
+import { NavigationOverlay } from "./-navigation-overlay";
 
 const validateAuth = async ({ location, context: { queryClient } }: any) => {
   try {
@@ -38,7 +43,6 @@ export const Route = createFileRoute("/(authenticated)/dashboard")({
 
 function AppProviders({ children }: { children: React.ReactNode }) {
   const isMobile = useIsMobile();
-
   return (
     <ThemeProvider defaultTheme="system" storageKey="theme">
       <Toaster position="top-center" expand richColors duration={4000} />
@@ -48,23 +52,26 @@ function AppProviders({ children }: { children: React.ReactNode }) {
 }
 
 function Layout() {
-  const { dir, isRTL } = useDirection();
+  const isNavigating = useRouterState({
+    select: (s) => s.isTransitioning,
+  });
+  const { dir } = useTranslation().i18n;
+  const isRTL = dir() === "rtl";
 
   return (
     <AppProviders>
       <div
         className="flex min-h-dvh w-full bg-background antialiased"
-        dir={dir}
+        dir={dir()}
       >
-        <AppSidebar dir={dir} side={isRTL ? "right" : "left"} />
+        <AppSidebar dir={dir()} side={isRTL ? "right" : "left"} />
 
-        <SidebarInset className="flex flex-1 flex-col">
+        <SidebarInset className="relative flex flex-1 flex-col">
           <TopBar />
 
-          <main className="flex-1 overflow-y-auto p-2 sm:p-4 lg:p-6">
-            <Suspense fallback={<LoadingFallback message="loading" />}>
-              <Outlet />
-            </Suspense>
+          <main className="relative flex-1 overflow-y-auto p-2 sm:p-4 lg:p-6">
+            <Outlet />
+            {isNavigating && <NavigationOverlay />}
           </main>
         </SidebarInset>
       </div>

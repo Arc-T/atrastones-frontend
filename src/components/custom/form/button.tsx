@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { Loader2, CheckCircle2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 
@@ -30,11 +30,7 @@ export function RHFSubmitButton({
         className,
       )}
     >
-      {isSubmitting ? (
-        <Loader2 className="w-4 h-4 animate-spin mr-2" />
-      ) : (
-        <CheckCircle2 className="w-4 h-4 mr-2" />
-      )}
+      {isSubmitting ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
 
       {isSubmitting ? t(loadingText) : t(defaultText)}
     </Button>

@@ -1,9 +1,13 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
+import z from "zod";
+import LanguageDetector from "i18next-browser-languagedetector";
+import { en, fa } from "zod/v4/locales";
 
 const resources = {
   en: {
     translation: {
+      username_label: "Username",
       direction: "ltr",
       select: "select",
       dashboard: "Dashboard",
@@ -153,6 +157,7 @@ const resources = {
   fa: {
     translation: {
       direction: "rtl",
+      username_label: "نام کاربری",
       select: "انتخاب کنید",
       dashboard: "داشبورد",
       profile: "پروفایل",
@@ -299,17 +304,28 @@ const resources = {
   },
 };
 
-i18n.use(initReactI18next).init({
-  resources,
-  fallbackLng: "fa",
-  supportedLngs: ["en", "fa"],
+i18n
+  .use(initReactI18next)
+  .use(LanguageDetector)
+  .init({
+    resources,
+    fallbackLng: "en",
+    supportedLngs: ["en", "fa"],
+    interpolation: {
+      escapeValue: false,
+    },
+    detection: {
+      lookupLocalStorage: "lang",
+      caches: ["localStorage"],
+    },
+    // react: {
+    //   useSuspense: false,
+    // },
+  })
+  .then(() => syncZodLocale(i18n.language));
 
-  interpolation: {
-    escapeValue: false,
-  },
-  // react: {
-  //   useSuspense: false,
-  // },
-});
+function syncZodLocale(lang: string) {
+  z.config(lang === "fa" ? fa() : en());
+}
 
 export default i18n;

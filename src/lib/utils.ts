@@ -1,14 +1,9 @@
 import { useLocation, useNavigate } from "@tanstack/react-router";
 import { clsx, type ClassValue } from "clsx";
-import { dir } from "i18next";
 import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
-}
-
-export function isRTL(): boolean {
-  return dir() === "rtl";
 }
 
 export function mapToSelectOptions<T extends { id: number; name: string }>(

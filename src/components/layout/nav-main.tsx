@@ -15,8 +15,7 @@ import {
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
 import { Link } from "@tanstack/react-router";
-import { t } from "i18next";
-import { isRTL } from "@/lib/utils";
+import { useTranslation } from "react-i18next";
 
 export function NavMain({
   items,
@@ -42,6 +41,7 @@ export function NavMain({
     },
     {},
   );
+  const { t, i18n } = useTranslation();
 
   return (
     <>
@@ -64,7 +64,7 @@ export function NavMain({
                         <span>{t(item.title)}</span>
                         <ChevronRight
                           className={`ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90 ${
-                            isRTL() ? "rotate-180" : ""
+                            i18n.dir() === "rtl" ? "rotate-180" : ""
                           }`}
                         />
                       </SidebarMenuButton>

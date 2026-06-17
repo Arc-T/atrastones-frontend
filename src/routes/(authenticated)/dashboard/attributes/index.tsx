@@ -8,6 +8,7 @@ import type { AttributeFilter } from "@/types/attribute";
 import { useState } from "react";
 import ActionBar from "@/components/custom/datatable/action-bar";
 import AttributeSearch from "./-search";
+import { UNPAGED } from "@/types/page";
 
 export const Route = createFileRoute("/(authenticated)/dashboard/attributes/")({
   component: AttributesIndex,
@@ -16,7 +17,7 @@ export const Route = createFileRoute("/(authenticated)/dashboard/attributes/")({
 
 function AttributesIndex() {
   const { t } = useTranslation();
-  const [filter, setFilter] = useState<Partial<AttributeFilter>>({});
+  const [filter, setFilter] = useState<Partial<AttributeFilter>>(UNPAGED);
   const { isLoading, data: attributes } = useGetAttributes(filter);
 
   return (
@@ -28,7 +29,7 @@ function AttributesIndex() {
             <ActionBar addLink={""}>
               <AttributeSearch
                 onSearch={(params) => setFilter(params)}
-                onClear={() => setFilter({})}
+                onClear={() => setFilter(UNPAGED)}
               />
             </ActionBar>
           </div>
@@ -38,6 +39,7 @@ function AttributesIndex() {
           columns={attributeListColumn}
           data={attributes}
           isLoading={isLoading}
+          onPaginationClick={(page) => setFilter(page)}
         />
       </div>
     </>

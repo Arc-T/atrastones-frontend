@@ -22,6 +22,8 @@ import { Route as authenticatedDashboardOrdersIndexRouteImport } from './routes/
 import { Route as authenticatedDashboardDiscountsIndexRouteImport } from './routes/(authenticated)/dashboard/discounts/index'
 import { Route as authenticatedDashboardCategoriesIndexRouteImport } from './routes/(authenticated)/dashboard/categories/index'
 import { Route as authenticatedDashboardAttributesIndexRouteImport } from './routes/(authenticated)/dashboard/attributes/index'
+import { Route as authenticatedDashboardCategoriesEditRouteImport } from './routes/(authenticated)/dashboard/categories/edit'
+import { Route as authenticatedDashboardCategoriesAddRouteImport } from './routes/(authenticated)/dashboard/categories/add'
 import { Route as authenticatedDashboardAttributesEditRouteImport } from './routes/(authenticated)/dashboard/attributes/edit'
 import { Route as authenticatedDashboardAttributesAddRouteImport } from './routes/(authenticated)/dashboard/attributes/add'
 
@@ -102,6 +104,18 @@ const authenticatedDashboardAttributesIndexRoute =
     path: '/attributes/',
     getParentRoute: () => authenticatedDashboardRouteRoute,
   } as any)
+const authenticatedDashboardCategoriesEditRoute =
+  authenticatedDashboardCategoriesEditRouteImport.update({
+    id: '/categories/edit',
+    path: '/categories/edit',
+    getParentRoute: () => authenticatedDashboardRouteRoute,
+  } as any)
+const authenticatedDashboardCategoriesAddRoute =
+  authenticatedDashboardCategoriesAddRouteImport.update({
+    id: '/categories/add',
+    path: '/categories/add',
+    getParentRoute: () => authenticatedDashboardRouteRoute,
+  } as any)
 const authenticatedDashboardAttributesEditRoute =
   authenticatedDashboardAttributesEditRouteImport.update({
     id: '/attributes/edit',
@@ -122,6 +136,8 @@ export interface FileRoutesByFullPath {
   '/dashboard/': typeof authenticatedDashboardIndexRoute
   '/dashboard/attributes/add': typeof authenticatedDashboardAttributesAddRoute
   '/dashboard/attributes/edit': typeof authenticatedDashboardAttributesEditRoute
+  '/dashboard/categories/add': typeof authenticatedDashboardCategoriesAddRoute
+  '/dashboard/categories/edit': typeof authenticatedDashboardCategoriesEditRoute
   '/dashboard/attributes/': typeof authenticatedDashboardAttributesIndexRoute
   '/dashboard/categories/': typeof authenticatedDashboardCategoriesIndexRoute
   '/dashboard/discounts/': typeof authenticatedDashboardDiscountsIndexRoute
@@ -138,6 +154,8 @@ export interface FileRoutesByTo {
   '/dashboard': typeof authenticatedDashboardIndexRoute
   '/dashboard/attributes/add': typeof authenticatedDashboardAttributesAddRoute
   '/dashboard/attributes/edit': typeof authenticatedDashboardAttributesEditRoute
+  '/dashboard/categories/add': typeof authenticatedDashboardCategoriesAddRoute
+  '/dashboard/categories/edit': typeof authenticatedDashboardCategoriesEditRoute
   '/dashboard/attributes': typeof authenticatedDashboardAttributesIndexRoute
   '/dashboard/categories': typeof authenticatedDashboardCategoriesIndexRoute
   '/dashboard/discounts': typeof authenticatedDashboardDiscountsIndexRoute
@@ -156,6 +174,8 @@ export interface FileRoutesById {
   '/(authenticated)/dashboard/': typeof authenticatedDashboardIndexRoute
   '/(authenticated)/dashboard/attributes/add': typeof authenticatedDashboardAttributesAddRoute
   '/(authenticated)/dashboard/attributes/edit': typeof authenticatedDashboardAttributesEditRoute
+  '/(authenticated)/dashboard/categories/add': typeof authenticatedDashboardCategoriesAddRoute
+  '/(authenticated)/dashboard/categories/edit': typeof authenticatedDashboardCategoriesEditRoute
   '/(authenticated)/dashboard/attributes/': typeof authenticatedDashboardAttributesIndexRoute
   '/(authenticated)/dashboard/categories/': typeof authenticatedDashboardCategoriesIndexRoute
   '/(authenticated)/dashboard/discounts/': typeof authenticatedDashboardDiscountsIndexRoute
@@ -175,6 +195,8 @@ export interface FileRouteTypes {
     | '/dashboard/'
     | '/dashboard/attributes/add'
     | '/dashboard/attributes/edit'
+    | '/dashboard/categories/add'
+    | '/dashboard/categories/edit'
     | '/dashboard/attributes/'
     | '/dashboard/categories/'
     | '/dashboard/discounts/'
@@ -191,6 +213,8 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/dashboard/attributes/add'
     | '/dashboard/attributes/edit'
+    | '/dashboard/categories/add'
+    | '/dashboard/categories/edit'
     | '/dashboard/attributes'
     | '/dashboard/categories'
     | '/dashboard/discounts'
@@ -208,6 +232,8 @@ export interface FileRouteTypes {
     | '/(authenticated)/dashboard/'
     | '/(authenticated)/dashboard/attributes/add'
     | '/(authenticated)/dashboard/attributes/edit'
+    | '/(authenticated)/dashboard/categories/add'
+    | '/(authenticated)/dashboard/categories/edit'
     | '/(authenticated)/dashboard/attributes/'
     | '/(authenticated)/dashboard/categories/'
     | '/(authenticated)/dashboard/discounts/'
@@ -318,6 +344,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof authenticatedDashboardAttributesIndexRouteImport
       parentRoute: typeof authenticatedDashboardRouteRoute
     }
+    '/(authenticated)/dashboard/categories/edit': {
+      id: '/(authenticated)/dashboard/categories/edit'
+      path: '/categories/edit'
+      fullPath: '/dashboard/categories/edit'
+      preLoaderRoute: typeof authenticatedDashboardCategoriesEditRouteImport
+      parentRoute: typeof authenticatedDashboardRouteRoute
+    }
+    '/(authenticated)/dashboard/categories/add': {
+      id: '/(authenticated)/dashboard/categories/add'
+      path: '/categories/add'
+      fullPath: '/dashboard/categories/add'
+      preLoaderRoute: typeof authenticatedDashboardCategoriesAddRouteImport
+      parentRoute: typeof authenticatedDashboardRouteRoute
+    }
     '/(authenticated)/dashboard/attributes/edit': {
       id: '/(authenticated)/dashboard/attributes/edit'
       path: '/attributes/edit'
@@ -339,6 +379,8 @@ interface authenticatedDashboardRouteRouteChildren {
   authenticatedDashboardIndexRoute: typeof authenticatedDashboardIndexRoute
   authenticatedDashboardAttributesAddRoute: typeof authenticatedDashboardAttributesAddRoute
   authenticatedDashboardAttributesEditRoute: typeof authenticatedDashboardAttributesEditRoute
+  authenticatedDashboardCategoriesAddRoute: typeof authenticatedDashboardCategoriesAddRoute
+  authenticatedDashboardCategoriesEditRoute: typeof authenticatedDashboardCategoriesEditRoute
   authenticatedDashboardAttributesIndexRoute: typeof authenticatedDashboardAttributesIndexRoute
   authenticatedDashboardCategoriesIndexRoute: typeof authenticatedDashboardCategoriesIndexRoute
   authenticatedDashboardDiscountsIndexRoute: typeof authenticatedDashboardDiscountsIndexRoute
@@ -357,6 +399,10 @@ const authenticatedDashboardRouteRouteChildren: authenticatedDashboardRouteRoute
       authenticatedDashboardAttributesAddRoute,
     authenticatedDashboardAttributesEditRoute:
       authenticatedDashboardAttributesEditRoute,
+    authenticatedDashboardCategoriesAddRoute:
+      authenticatedDashboardCategoriesAddRoute,
+    authenticatedDashboardCategoriesEditRoute:
+      authenticatedDashboardCategoriesEditRoute,
     authenticatedDashboardAttributesIndexRoute:
       authenticatedDashboardAttributesIndexRoute,
     authenticatedDashboardCategoriesIndexRoute:

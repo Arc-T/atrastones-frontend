@@ -1,8 +1,7 @@
 import { useState, useRef, type ReactNode } from "react";
-import { Filter, Plus } from "lucide-react";
+import { Filter } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
-import { Link } from "@tanstack/react-router";
 
 interface ActionBarProps {
   addLink: string;
@@ -14,7 +13,6 @@ interface ActionBarProps {
 }
 
 export default function ActionBar({
-  addLink,
   children,
   // onClearFilters,
 }: ActionBarProps) {
@@ -24,7 +22,7 @@ export default function ActionBar({
 
   return (
     <>
-      <div className="flex justify-between items-center gap-2">
+      <div className="flex justify-start items-center gap-2">
         <Button
           onClick={() => setShowFilters(!showFilters)}
           variant="outline"
@@ -33,16 +31,6 @@ export default function ActionBar({
           <Filter className="w-4 h-4" />
           {t("filter")}
         </Button>
-
-        <Link to={addLink}>
-          <Button
-            variant="outline"
-            className="border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white gap-2"
-          >
-            <Plus className="w-4 h-4" />
-            {t("add")}
-          </Button>
-        </Link>
       </div>
 
       <div

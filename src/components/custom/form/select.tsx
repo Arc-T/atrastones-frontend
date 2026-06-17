@@ -87,7 +87,7 @@ export function RHFSelect<T extends FieldValues>({
               aria-invalid={fieldState.invalid || isError}
               className={
                 isError
-                  ? "flex w-full items-center justify-between gap-2 border-destructive data-[placeholder]:text-destructive"
+                  ? "flex w-full items-center justify-between gap-2 border-destructive data-placeholder:text-destructive"
                   : "flex w-full items-center justify-between gap-2"
               }
             >

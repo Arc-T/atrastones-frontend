@@ -12,16 +12,16 @@ export interface UserLogin {
   password: string;
 }
 
-export type UserFormValues = z.infer<typeof UserSchema>;
+export type AuthenticateUserFormValues = z.infer<typeof UserSchema>;
 
 export const UserSchema = z.object({
-  username: z.string().min(1, "نام کاربری الزامی است"),
-  password: z.string().min(1, "'پسورد الزامی است"),
-  rememberMe: z.boolean(),
+  username: z.string().min(1),
+  password: z.string().min(3),
+  rememberMe: z.boolean().optional(),
 });
 
-export const useUserForm = () =>
-  useForm<UserFormValues>({
+export const useAuthenticateForm = () =>
+  useForm<AuthenticateUserFormValues>({
     resolver: zodResolver(UserSchema),
     mode: "onSubmit",
     defaultValues: {

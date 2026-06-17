@@ -21,6 +21,12 @@ export const useAuthenticate = () => {
   });
 };
 
+export const useMutateAuthenticate = () => {
+  return useMutation({
+    mutationFn: UserService.authenticate,
+  });
+};
+
 export const useLogout = () => {
   const queryClient = useQueryClient();
   return useMutation({

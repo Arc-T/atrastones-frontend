@@ -14,6 +14,6 @@ export interface PaginatedResponse<T> {
 }
 
 export const UNPAGED = {
-    page: 1,
-    size: 100
+    page: 0,
+    size: 5
 }

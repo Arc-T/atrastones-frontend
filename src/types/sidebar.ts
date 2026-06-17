@@ -70,17 +70,16 @@ export const sidebarItems = {
     //   icon: Settings,
     // },
     // Catalog
-    // {
-    //   group: "catalog",
-    //   title: "categories",
-    //   url: "#",
-    //   icon: FolderTree,
-    //   items: [
-    //     { title: "Genesis", url: "#" },
-    //     { title: "Explorer", url: "#" },
-    //     { title: "Quantum", url: "#" },
-    //   ],
-    // },
+    {
+      group: "catalog",
+      title: "categories",
+      url: "/categories",
+      icon: FolderTree,
+      items: [
+        { title: "list", url: "/" },
+        { title: "create", url: "/add" },
+      ],
+    },
     {
       group: "catalog",
       title: "attributes",

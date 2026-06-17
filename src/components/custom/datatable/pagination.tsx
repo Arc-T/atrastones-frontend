@@ -1,4 +1,3 @@
-// components/custom/data-table/Pagination.tsx
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
@@ -9,7 +8,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { isRTL } from "@/lib/utils";
 
 interface PaginationProps {
   page: number;
@@ -26,7 +24,8 @@ export default function Pagination({
   onPageChange,
   onPageSizeChange,
 }: PaginationProps) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isRTL = i18n.dir() === "rtl";
   const totalPages = Math.ceil(totalItems / pageSize);
 
   return (
@@ -39,7 +38,7 @@ export default function Pagination({
             onPageSizeChange(Number(v));
           }}
         >
-          <SelectTrigger className="w-16 h-8 bg-white dark:bg-slate-900">
+          <SelectTrigger className="w-20 h-8">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -66,7 +65,7 @@ export default function Pagination({
           disabled={page === 0}
           onClick={() => onPageChange(page - 1)}
         >
-          {isRTL() ? (
+          {isRTL ? (
             <ChevronRight className="w-4 h-4" />
           ) : (
             <ChevronLeft className="w-4 h-4" />
@@ -82,7 +81,7 @@ export default function Pagination({
               key={pageNum}
               variant={page === pageNum ? "default" : "outline"}
               size="icon"
-              className={`h-8 w-8 ${page === pageNum ? "bg-indigo-600 hover:bg-indigo-700" : ""}`}
+              className={'h-8 w-8'}
               onClick={() => onPageChange(pageNum)}
             >
               {pageNum + 1}
@@ -96,7 +95,7 @@ export default function Pagination({
           disabled={page >= totalPages - 1}
           onClick={() => onPageChange(page + 1)}
         >
-          {isRTL() ? (
+          {isRTL ? (
             <ChevronLeft className="w-4 h-4" />
           ) : (
             <ChevronRight className="w-4 h-4" />

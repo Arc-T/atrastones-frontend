@@ -21,7 +21,6 @@ import {
 import { useTranslation } from "react-i18next";
 import { useTheme } from "../theme-provider";
 import AutoBreadcrumb from "../custom/auto-breadcrumb";
-import { useDirection } from "@/hooks/use-direction";
 import { cn } from "@/lib/utils";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 
@@ -41,7 +40,7 @@ const languages = [
 export function TopBar() {
   const { theme, setTheme } = useTheme();
   const { t, i18n } = useTranslation();
-  const { dir } = useDirection();
+  const dir = i18n.dir();
 
   const currentLang = i18n.resolvedLanguage ?? "fa";
   const isDark = theme === "dark";
@@ -65,11 +64,6 @@ export function TopBar() {
     }
   }, []);
 
-  useEffect(() => {
-    document.documentElement.lang = currentLang;
-    document.documentElement.dir = dir;
-  }, [currentLang, dir]);
-
   const toggleTheme = useCallback(() => {
     setTheme(isDark ? "light" : "dark");
   }, [isDark, setTheme]);
@@ -84,7 +78,7 @@ export function TopBar() {
   const menuAlign = useMemo(() => (dir === "rtl" ? "start" : "end"), [dir]);
 
   return (
-    <header className="sticky top-0 z-10 flex h-16 shrink-0 items-center justify-between px-4 border-b bg-background/70 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-10 flex h-16 shrink-0 items-center justify-between px-4 border-b bg-background/70 backdrop-blur supports-backdrop-filter:bg-background/60">
       {/* Left section */}
       <div className="flex items-center gap-2">
         <Tooltip>

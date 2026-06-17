@@ -2,7 +2,14 @@ import { RHFSubmitButton } from "@/components/custom/form/button";
 import { RHFInput } from "@/components/custom/form/input";
 import { RHFSelect } from "@/components/custom/form/select";
 import { RHFSwitch } from "@/components/custom/form/switch";
-import { FieldGroup } from "@/components/ui/field";
+import {
+  Field,
+  FieldContent,
+  FieldDescription,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from "@/components/ui/field";
 import { useMutateCreateAttribute } from "@/hooks/use-attributes";
 import { useGetCategories } from "@/hooks/use-categories";
 import { mapToSelectOptions } from "@/lib/utils";
@@ -14,7 +21,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PenBoxIcon } from "lucide-react";
 
 export const Route = createFileRoute(
-  "/(authenticated)/dashboard/attributes/add",
+  "/(authenticated)/dashboard/categories/add",
 )({
   component: RouteComponent,
 });
