@@ -63,7 +63,7 @@ export type AttributeSearchFormValues = z.infer<
 export const useSearchAttributeForm = () =>
   useForm<AttributeSearchFormValues>({
     resolver: zodResolver(attributeSearchFormSchema),
-    mode: "onChange",
+    mode: "onSubmit",
     defaultValues: {
       name: "",
     },

@@ -9,186 +9,202 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as anonymousLoginRouteImport } from './routes/(anonymous)/login'
-import { Route as anonymousForget_passowrdRouteImport } from './routes/(anonymous)/forget_passowrd'
-import { Route as authenticatedDashboardRouteRouteImport } from './routes/(authenticated)/dashboard/route'
-import { Route as authenticatedDashboardIndexRouteImport } from './routes/(authenticated)/dashboard/index'
-import { Route as authenticatedDashboardTagsIndexRouteImport } from './routes/(authenticated)/dashboard/tags/index'
-import { Route as authenticatedDashboardSettingsIndexRouteImport } from './routes/(authenticated)/dashboard/settings/index'
-import { Route as authenticatedDashboardServicesIndexRouteImport } from './routes/(authenticated)/dashboard/services/index'
-import { Route as authenticatedDashboardProfileIndexRouteImport } from './routes/(authenticated)/dashboard/profile/index'
-import { Route as authenticatedDashboardProductsIndexRouteImport } from './routes/(authenticated)/dashboard/products/index'
-import { Route as authenticatedDashboardOrdersIndexRouteImport } from './routes/(authenticated)/dashboard/orders/index'
-import { Route as authenticatedDashboardDiscountsIndexRouteImport } from './routes/(authenticated)/dashboard/discounts/index'
-import { Route as authenticatedDashboardCategoriesIndexRouteImport } from './routes/(authenticated)/dashboard/categories/index'
-import { Route as authenticatedDashboardAttributesIndexRouteImport } from './routes/(authenticated)/dashboard/attributes/index'
-import { Route as authenticatedDashboardCategoriesEditRouteImport } from './routes/(authenticated)/dashboard/categories/edit'
-import { Route as authenticatedDashboardCategoriesAddRouteImport } from './routes/(authenticated)/dashboard/categories/add'
-import { Route as authenticatedDashboardAttributesEditRouteImport } from './routes/(authenticated)/dashboard/attributes/edit'
-import { Route as authenticatedDashboardAttributesAddRouteImport } from './routes/(authenticated)/dashboard/attributes/add'
+import { Route as appRouteRouteImport } from './routes/(app)/route'
+import { Route as appIndexRouteImport } from './routes/(app)/index'
+import { Route as appanonymousLoginRouteImport } from './routes/(app)/(anonymous)/login'
+import { Route as appanonymousForget_passowrdRouteImport } from './routes/(app)/(anonymous)/forget_passowrd'
+import { Route as appauthenticatedDashboardRouteRouteImport } from './routes/(app)/(authenticated)/dashboard/route'
+import { Route as appauthenticatedDashboardIndexRouteImport } from './routes/(app)/(authenticated)/dashboard/index'
+import { Route as appauthenticatedDashboardTagsIndexRouteImport } from './routes/(app)/(authenticated)/dashboard/tags/index'
+import { Route as appauthenticatedDashboardSettingsIndexRouteImport } from './routes/(app)/(authenticated)/dashboard/settings/index'
+import { Route as appauthenticatedDashboardServicesIndexRouteImport } from './routes/(app)/(authenticated)/dashboard/services/index'
+import { Route as appauthenticatedDashboardProfileIndexRouteImport } from './routes/(app)/(authenticated)/dashboard/profile/index'
+import { Route as appauthenticatedDashboardProductsIndexRouteImport } from './routes/(app)/(authenticated)/dashboard/products/index'
+import { Route as appauthenticatedDashboardOrdersIndexRouteImport } from './routes/(app)/(authenticated)/dashboard/orders/index'
+import { Route as appauthenticatedDashboardDiscountsIndexRouteImport } from './routes/(app)/(authenticated)/dashboard/discounts/index'
+import { Route as appauthenticatedDashboardCategoriesIndexRouteImport } from './routes/(app)/(authenticated)/dashboard/categories/index'
+import { Route as appauthenticatedDashboardAttributesIndexRouteImport } from './routes/(app)/(authenticated)/dashboard/attributes/index'
+import { Route as appauthenticatedDashboardCategoriesEditRouteImport } from './routes/(app)/(authenticated)/dashboard/categories/edit'
+import { Route as appauthenticatedDashboardCategoriesAddRouteImport } from './routes/(app)/(authenticated)/dashboard/categories/add'
+import { Route as appauthenticatedDashboardAttributesEditRouteImport } from './routes/(app)/(authenticated)/dashboard/attributes/edit'
+import { Route as appauthenticatedDashboardAttributesAddRouteImport } from './routes/(app)/(authenticated)/dashboard/attributes/add'
 
-const anonymousLoginRoute = anonymousLoginRouteImport.update({
-  id: '/(anonymous)/login',
-  path: '/login',
+const appRouteRoute = appRouteRouteImport.update({
+  id: '/(app)',
   getParentRoute: () => rootRouteImport,
 } as any)
-const anonymousForget_passowrdRoute =
-  anonymousForget_passowrdRouteImport.update({
+const appIndexRoute = appIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => appRouteRoute,
+} as any)
+const appanonymousLoginRoute = appanonymousLoginRouteImport.update({
+  id: '/(anonymous)/login',
+  path: '/login',
+  getParentRoute: () => appRouteRoute,
+} as any)
+const appanonymousForget_passowrdRoute =
+  appanonymousForget_passowrdRouteImport.update({
     id: '/(anonymous)/forget_passowrd',
     path: '/forget_passowrd',
-    getParentRoute: () => rootRouteImport,
+    getParentRoute: () => appRouteRoute,
   } as any)
-const authenticatedDashboardRouteRoute =
-  authenticatedDashboardRouteRouteImport.update({
+const appauthenticatedDashboardRouteRoute =
+  appauthenticatedDashboardRouteRouteImport.update({
     id: '/(authenticated)/dashboard',
     path: '/dashboard',
-    getParentRoute: () => rootRouteImport,
+    getParentRoute: () => appRouteRoute,
   } as any)
-const authenticatedDashboardIndexRoute =
-  authenticatedDashboardIndexRouteImport.update({
+const appauthenticatedDashboardIndexRoute =
+  appauthenticatedDashboardIndexRouteImport.update({
     id: '/',
     path: '/',
-    getParentRoute: () => authenticatedDashboardRouteRoute,
+    getParentRoute: () => appauthenticatedDashboardRouteRoute,
   } as any)
-const authenticatedDashboardTagsIndexRoute =
-  authenticatedDashboardTagsIndexRouteImport.update({
+const appauthenticatedDashboardTagsIndexRoute =
+  appauthenticatedDashboardTagsIndexRouteImport.update({
     id: '/tags/',
     path: '/tags/',
-    getParentRoute: () => authenticatedDashboardRouteRoute,
+    getParentRoute: () => appauthenticatedDashboardRouteRoute,
   } as any)
-const authenticatedDashboardSettingsIndexRoute =
-  authenticatedDashboardSettingsIndexRouteImport.update({
+const appauthenticatedDashboardSettingsIndexRoute =
+  appauthenticatedDashboardSettingsIndexRouteImport.update({
     id: '/settings/',
     path: '/settings/',
-    getParentRoute: () => authenticatedDashboardRouteRoute,
+    getParentRoute: () => appauthenticatedDashboardRouteRoute,
   } as any)
-const authenticatedDashboardServicesIndexRoute =
-  authenticatedDashboardServicesIndexRouteImport.update({
+const appauthenticatedDashboardServicesIndexRoute =
+  appauthenticatedDashboardServicesIndexRouteImport.update({
     id: '/services/',
     path: '/services/',
-    getParentRoute: () => authenticatedDashboardRouteRoute,
+    getParentRoute: () => appauthenticatedDashboardRouteRoute,
   } as any)
-const authenticatedDashboardProfileIndexRoute =
-  authenticatedDashboardProfileIndexRouteImport.update({
+const appauthenticatedDashboardProfileIndexRoute =
+  appauthenticatedDashboardProfileIndexRouteImport.update({
     id: '/profile/',
     path: '/profile/',
-    getParentRoute: () => authenticatedDashboardRouteRoute,
+    getParentRoute: () => appauthenticatedDashboardRouteRoute,
   } as any)
-const authenticatedDashboardProductsIndexRoute =
-  authenticatedDashboardProductsIndexRouteImport.update({
+const appauthenticatedDashboardProductsIndexRoute =
+  appauthenticatedDashboardProductsIndexRouteImport.update({
     id: '/products/',
     path: '/products/',
-    getParentRoute: () => authenticatedDashboardRouteRoute,
+    getParentRoute: () => appauthenticatedDashboardRouteRoute,
   } as any)
-const authenticatedDashboardOrdersIndexRoute =
-  authenticatedDashboardOrdersIndexRouteImport.update({
+const appauthenticatedDashboardOrdersIndexRoute =
+  appauthenticatedDashboardOrdersIndexRouteImport.update({
     id: '/orders/',
     path: '/orders/',
-    getParentRoute: () => authenticatedDashboardRouteRoute,
+    getParentRoute: () => appauthenticatedDashboardRouteRoute,
   } as any)
-const authenticatedDashboardDiscountsIndexRoute =
-  authenticatedDashboardDiscountsIndexRouteImport.update({
+const appauthenticatedDashboardDiscountsIndexRoute =
+  appauthenticatedDashboardDiscountsIndexRouteImport.update({
     id: '/discounts/',
     path: '/discounts/',
-    getParentRoute: () => authenticatedDashboardRouteRoute,
+    getParentRoute: () => appauthenticatedDashboardRouteRoute,
   } as any)
-const authenticatedDashboardCategoriesIndexRoute =
-  authenticatedDashboardCategoriesIndexRouteImport.update({
+const appauthenticatedDashboardCategoriesIndexRoute =
+  appauthenticatedDashboardCategoriesIndexRouteImport.update({
     id: '/categories/',
     path: '/categories/',
-    getParentRoute: () => authenticatedDashboardRouteRoute,
+    getParentRoute: () => appauthenticatedDashboardRouteRoute,
   } as any)
-const authenticatedDashboardAttributesIndexRoute =
-  authenticatedDashboardAttributesIndexRouteImport.update({
+const appauthenticatedDashboardAttributesIndexRoute =
+  appauthenticatedDashboardAttributesIndexRouteImport.update({
     id: '/attributes/',
     path: '/attributes/',
-    getParentRoute: () => authenticatedDashboardRouteRoute,
+    getParentRoute: () => appauthenticatedDashboardRouteRoute,
   } as any)
-const authenticatedDashboardCategoriesEditRoute =
-  authenticatedDashboardCategoriesEditRouteImport.update({
+const appauthenticatedDashboardCategoriesEditRoute =
+  appauthenticatedDashboardCategoriesEditRouteImport.update({
     id: '/categories/edit',
     path: '/categories/edit',
-    getParentRoute: () => authenticatedDashboardRouteRoute,
+    getParentRoute: () => appauthenticatedDashboardRouteRoute,
   } as any)
-const authenticatedDashboardCategoriesAddRoute =
-  authenticatedDashboardCategoriesAddRouteImport.update({
+const appauthenticatedDashboardCategoriesAddRoute =
+  appauthenticatedDashboardCategoriesAddRouteImport.update({
     id: '/categories/add',
     path: '/categories/add',
-    getParentRoute: () => authenticatedDashboardRouteRoute,
+    getParentRoute: () => appauthenticatedDashboardRouteRoute,
   } as any)
-const authenticatedDashboardAttributesEditRoute =
-  authenticatedDashboardAttributesEditRouteImport.update({
+const appauthenticatedDashboardAttributesEditRoute =
+  appauthenticatedDashboardAttributesEditRouteImport.update({
     id: '/attributes/edit',
     path: '/attributes/edit',
-    getParentRoute: () => authenticatedDashboardRouteRoute,
+    getParentRoute: () => appauthenticatedDashboardRouteRoute,
   } as any)
-const authenticatedDashboardAttributesAddRoute =
-  authenticatedDashboardAttributesAddRouteImport.update({
+const appauthenticatedDashboardAttributesAddRoute =
+  appauthenticatedDashboardAttributesAddRouteImport.update({
     id: '/attributes/add',
     path: '/attributes/add',
-    getParentRoute: () => authenticatedDashboardRouteRoute,
+    getParentRoute: () => appauthenticatedDashboardRouteRoute,
   } as any)
 
 export interface FileRoutesByFullPath {
-  '/dashboard': typeof authenticatedDashboardRouteRouteWithChildren
-  '/forget_passowrd': typeof anonymousForget_passowrdRoute
-  '/login': typeof anonymousLoginRoute
-  '/dashboard/': typeof authenticatedDashboardIndexRoute
-  '/dashboard/attributes/add': typeof authenticatedDashboardAttributesAddRoute
-  '/dashboard/attributes/edit': typeof authenticatedDashboardAttributesEditRoute
-  '/dashboard/categories/add': typeof authenticatedDashboardCategoriesAddRoute
-  '/dashboard/categories/edit': typeof authenticatedDashboardCategoriesEditRoute
-  '/dashboard/attributes/': typeof authenticatedDashboardAttributesIndexRoute
-  '/dashboard/categories/': typeof authenticatedDashboardCategoriesIndexRoute
-  '/dashboard/discounts/': typeof authenticatedDashboardDiscountsIndexRoute
-  '/dashboard/orders/': typeof authenticatedDashboardOrdersIndexRoute
-  '/dashboard/products/': typeof authenticatedDashboardProductsIndexRoute
-  '/dashboard/profile/': typeof authenticatedDashboardProfileIndexRoute
-  '/dashboard/services/': typeof authenticatedDashboardServicesIndexRoute
-  '/dashboard/settings/': typeof authenticatedDashboardSettingsIndexRoute
-  '/dashboard/tags/': typeof authenticatedDashboardTagsIndexRoute
+  '/': typeof appIndexRoute
+  '/dashboard': typeof appauthenticatedDashboardRouteRouteWithChildren
+  '/forget_passowrd': typeof appanonymousForget_passowrdRoute
+  '/login': typeof appanonymousLoginRoute
+  '/dashboard/': typeof appauthenticatedDashboardIndexRoute
+  '/dashboard/attributes/add': typeof appauthenticatedDashboardAttributesAddRoute
+  '/dashboard/attributes/edit': typeof appauthenticatedDashboardAttributesEditRoute
+  '/dashboard/categories/add': typeof appauthenticatedDashboardCategoriesAddRoute
+  '/dashboard/categories/edit': typeof appauthenticatedDashboardCategoriesEditRoute
+  '/dashboard/attributes/': typeof appauthenticatedDashboardAttributesIndexRoute
+  '/dashboard/categories/': typeof appauthenticatedDashboardCategoriesIndexRoute
+  '/dashboard/discounts/': typeof appauthenticatedDashboardDiscountsIndexRoute
+  '/dashboard/orders/': typeof appauthenticatedDashboardOrdersIndexRoute
+  '/dashboard/products/': typeof appauthenticatedDashboardProductsIndexRoute
+  '/dashboard/profile/': typeof appauthenticatedDashboardProfileIndexRoute
+  '/dashboard/services/': typeof appauthenticatedDashboardServicesIndexRoute
+  '/dashboard/settings/': typeof appauthenticatedDashboardSettingsIndexRoute
+  '/dashboard/tags/': typeof appauthenticatedDashboardTagsIndexRoute
 }
 export interface FileRoutesByTo {
-  '/forget_passowrd': typeof anonymousForget_passowrdRoute
-  '/login': typeof anonymousLoginRoute
-  '/dashboard': typeof authenticatedDashboardIndexRoute
-  '/dashboard/attributes/add': typeof authenticatedDashboardAttributesAddRoute
-  '/dashboard/attributes/edit': typeof authenticatedDashboardAttributesEditRoute
-  '/dashboard/categories/add': typeof authenticatedDashboardCategoriesAddRoute
-  '/dashboard/categories/edit': typeof authenticatedDashboardCategoriesEditRoute
-  '/dashboard/attributes': typeof authenticatedDashboardAttributesIndexRoute
-  '/dashboard/categories': typeof authenticatedDashboardCategoriesIndexRoute
-  '/dashboard/discounts': typeof authenticatedDashboardDiscountsIndexRoute
-  '/dashboard/orders': typeof authenticatedDashboardOrdersIndexRoute
-  '/dashboard/products': typeof authenticatedDashboardProductsIndexRoute
-  '/dashboard/profile': typeof authenticatedDashboardProfileIndexRoute
-  '/dashboard/services': typeof authenticatedDashboardServicesIndexRoute
-  '/dashboard/settings': typeof authenticatedDashboardSettingsIndexRoute
-  '/dashboard/tags': typeof authenticatedDashboardTagsIndexRoute
+  '/': typeof appIndexRoute
+  '/forget_passowrd': typeof appanonymousForget_passowrdRoute
+  '/login': typeof appanonymousLoginRoute
+  '/dashboard': typeof appauthenticatedDashboardIndexRoute
+  '/dashboard/attributes/add': typeof appauthenticatedDashboardAttributesAddRoute
+  '/dashboard/attributes/edit': typeof appauthenticatedDashboardAttributesEditRoute
+  '/dashboard/categories/add': typeof appauthenticatedDashboardCategoriesAddRoute
+  '/dashboard/categories/edit': typeof appauthenticatedDashboardCategoriesEditRoute
+  '/dashboard/attributes': typeof appauthenticatedDashboardAttributesIndexRoute
+  '/dashboard/categories': typeof appauthenticatedDashboardCategoriesIndexRoute
+  '/dashboard/discounts': typeof appauthenticatedDashboardDiscountsIndexRoute
+  '/dashboard/orders': typeof appauthenticatedDashboardOrdersIndexRoute
+  '/dashboard/products': typeof appauthenticatedDashboardProductsIndexRoute
+  '/dashboard/profile': typeof appauthenticatedDashboardProfileIndexRoute
+  '/dashboard/services': typeof appauthenticatedDashboardServicesIndexRoute
+  '/dashboard/settings': typeof appauthenticatedDashboardSettingsIndexRoute
+  '/dashboard/tags': typeof appauthenticatedDashboardTagsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/(authenticated)/dashboard': typeof authenticatedDashboardRouteRouteWithChildren
-  '/(anonymous)/forget_passowrd': typeof anonymousForget_passowrdRoute
-  '/(anonymous)/login': typeof anonymousLoginRoute
-  '/(authenticated)/dashboard/': typeof authenticatedDashboardIndexRoute
-  '/(authenticated)/dashboard/attributes/add': typeof authenticatedDashboardAttributesAddRoute
-  '/(authenticated)/dashboard/attributes/edit': typeof authenticatedDashboardAttributesEditRoute
-  '/(authenticated)/dashboard/categories/add': typeof authenticatedDashboardCategoriesAddRoute
-  '/(authenticated)/dashboard/categories/edit': typeof authenticatedDashboardCategoriesEditRoute
-  '/(authenticated)/dashboard/attributes/': typeof authenticatedDashboardAttributesIndexRoute
-  '/(authenticated)/dashboard/categories/': typeof authenticatedDashboardCategoriesIndexRoute
-  '/(authenticated)/dashboard/discounts/': typeof authenticatedDashboardDiscountsIndexRoute
-  '/(authenticated)/dashboard/orders/': typeof authenticatedDashboardOrdersIndexRoute
-  '/(authenticated)/dashboard/products/': typeof authenticatedDashboardProductsIndexRoute
-  '/(authenticated)/dashboard/profile/': typeof authenticatedDashboardProfileIndexRoute
-  '/(authenticated)/dashboard/services/': typeof authenticatedDashboardServicesIndexRoute
-  '/(authenticated)/dashboard/settings/': typeof authenticatedDashboardSettingsIndexRoute
-  '/(authenticated)/dashboard/tags/': typeof authenticatedDashboardTagsIndexRoute
+  '/(app)': typeof appRouteRouteWithChildren
+  '/(app)/': typeof appIndexRoute
+  '/(app)/(authenticated)/dashboard': typeof appauthenticatedDashboardRouteRouteWithChildren
+  '/(app)/(anonymous)/forget_passowrd': typeof appanonymousForget_passowrdRoute
+  '/(app)/(anonymous)/login': typeof appanonymousLoginRoute
+  '/(app)/(authenticated)/dashboard/': typeof appauthenticatedDashboardIndexRoute
+  '/(app)/(authenticated)/dashboard/attributes/add': typeof appauthenticatedDashboardAttributesAddRoute
+  '/(app)/(authenticated)/dashboard/attributes/edit': typeof appauthenticatedDashboardAttributesEditRoute
+  '/(app)/(authenticated)/dashboard/categories/add': typeof appauthenticatedDashboardCategoriesAddRoute
+  '/(app)/(authenticated)/dashboard/categories/edit': typeof appauthenticatedDashboardCategoriesEditRoute
+  '/(app)/(authenticated)/dashboard/attributes/': typeof appauthenticatedDashboardAttributesIndexRoute
+  '/(app)/(authenticated)/dashboard/categories/': typeof appauthenticatedDashboardCategoriesIndexRoute
+  '/(app)/(authenticated)/dashboard/discounts/': typeof appauthenticatedDashboardDiscountsIndexRoute
+  '/(app)/(authenticated)/dashboard/orders/': typeof appauthenticatedDashboardOrdersIndexRoute
+  '/(app)/(authenticated)/dashboard/products/': typeof appauthenticatedDashboardProductsIndexRoute
+  '/(app)/(authenticated)/dashboard/profile/': typeof appauthenticatedDashboardProfileIndexRoute
+  '/(app)/(authenticated)/dashboard/services/': typeof appauthenticatedDashboardServicesIndexRoute
+  '/(app)/(authenticated)/dashboard/settings/': typeof appauthenticatedDashboardSettingsIndexRoute
+  '/(app)/(authenticated)/dashboard/tags/': typeof appauthenticatedDashboardTagsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
+    | '/'
     | '/dashboard'
     | '/forget_passowrd'
     | '/login'
@@ -208,6 +224,7 @@ export interface FileRouteTypes {
     | '/dashboard/tags/'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/'
     | '/forget_passowrd'
     | '/login'
     | '/dashboard'
@@ -226,212 +243,243 @@ export interface FileRouteTypes {
     | '/dashboard/tags'
   id:
     | '__root__'
-    | '/(authenticated)/dashboard'
-    | '/(anonymous)/forget_passowrd'
-    | '/(anonymous)/login'
-    | '/(authenticated)/dashboard/'
-    | '/(authenticated)/dashboard/attributes/add'
-    | '/(authenticated)/dashboard/attributes/edit'
-    | '/(authenticated)/dashboard/categories/add'
-    | '/(authenticated)/dashboard/categories/edit'
-    | '/(authenticated)/dashboard/attributes/'
-    | '/(authenticated)/dashboard/categories/'
-    | '/(authenticated)/dashboard/discounts/'
-    | '/(authenticated)/dashboard/orders/'
-    | '/(authenticated)/dashboard/products/'
-    | '/(authenticated)/dashboard/profile/'
-    | '/(authenticated)/dashboard/services/'
-    | '/(authenticated)/dashboard/settings/'
-    | '/(authenticated)/dashboard/tags/'
+    | '/(app)'
+    | '/(app)/'
+    | '/(app)/(authenticated)/dashboard'
+    | '/(app)/(anonymous)/forget_passowrd'
+    | '/(app)/(anonymous)/login'
+    | '/(app)/(authenticated)/dashboard/'
+    | '/(app)/(authenticated)/dashboard/attributes/add'
+    | '/(app)/(authenticated)/dashboard/attributes/edit'
+    | '/(app)/(authenticated)/dashboard/categories/add'
+    | '/(app)/(authenticated)/dashboard/categories/edit'
+    | '/(app)/(authenticated)/dashboard/attributes/'
+    | '/(app)/(authenticated)/dashboard/categories/'
+    | '/(app)/(authenticated)/dashboard/discounts/'
+    | '/(app)/(authenticated)/dashboard/orders/'
+    | '/(app)/(authenticated)/dashboard/products/'
+    | '/(app)/(authenticated)/dashboard/profile/'
+    | '/(app)/(authenticated)/dashboard/services/'
+    | '/(app)/(authenticated)/dashboard/settings/'
+    | '/(app)/(authenticated)/dashboard/tags/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  authenticatedDashboardRouteRoute: typeof authenticatedDashboardRouteRouteWithChildren
-  anonymousForget_passowrdRoute: typeof anonymousForget_passowrdRoute
-  anonymousLoginRoute: typeof anonymousLoginRoute
+  appRouteRoute: typeof appRouteRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/(anonymous)/login': {
-      id: '/(anonymous)/login'
+    '/(app)': {
+      id: '/(app)'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof appRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(app)/': {
+      id: '/(app)/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof appIndexRouteImport
+      parentRoute: typeof appRouteRoute
+    }
+    '/(app)/(anonymous)/login': {
+      id: '/(app)/(anonymous)/login'
       path: '/login'
       fullPath: '/login'
-      preLoaderRoute: typeof anonymousLoginRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof appanonymousLoginRouteImport
+      parentRoute: typeof appRouteRoute
     }
-    '/(anonymous)/forget_passowrd': {
-      id: '/(anonymous)/forget_passowrd'
+    '/(app)/(anonymous)/forget_passowrd': {
+      id: '/(app)/(anonymous)/forget_passowrd'
       path: '/forget_passowrd'
       fullPath: '/forget_passowrd'
-      preLoaderRoute: typeof anonymousForget_passowrdRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof appanonymousForget_passowrdRouteImport
+      parentRoute: typeof appRouteRoute
     }
-    '/(authenticated)/dashboard': {
-      id: '/(authenticated)/dashboard'
+    '/(app)/(authenticated)/dashboard': {
+      id: '/(app)/(authenticated)/dashboard'
       path: '/dashboard'
       fullPath: '/dashboard'
-      preLoaderRoute: typeof authenticatedDashboardRouteRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof appauthenticatedDashboardRouteRouteImport
+      parentRoute: typeof appRouteRoute
     }
-    '/(authenticated)/dashboard/': {
-      id: '/(authenticated)/dashboard/'
+    '/(app)/(authenticated)/dashboard/': {
+      id: '/(app)/(authenticated)/dashboard/'
       path: '/'
       fullPath: '/dashboard/'
-      preLoaderRoute: typeof authenticatedDashboardIndexRouteImport
-      parentRoute: typeof authenticatedDashboardRouteRoute
+      preLoaderRoute: typeof appauthenticatedDashboardIndexRouteImport
+      parentRoute: typeof appauthenticatedDashboardRouteRoute
     }
-    '/(authenticated)/dashboard/tags/': {
-      id: '/(authenticated)/dashboard/tags/'
+    '/(app)/(authenticated)/dashboard/tags/': {
+      id: '/(app)/(authenticated)/dashboard/tags/'
       path: '/tags'
       fullPath: '/dashboard/tags/'
-      preLoaderRoute: typeof authenticatedDashboardTagsIndexRouteImport
-      parentRoute: typeof authenticatedDashboardRouteRoute
+      preLoaderRoute: typeof appauthenticatedDashboardTagsIndexRouteImport
+      parentRoute: typeof appauthenticatedDashboardRouteRoute
     }
-    '/(authenticated)/dashboard/settings/': {
-      id: '/(authenticated)/dashboard/settings/'
+    '/(app)/(authenticated)/dashboard/settings/': {
+      id: '/(app)/(authenticated)/dashboard/settings/'
       path: '/settings'
       fullPath: '/dashboard/settings/'
-      preLoaderRoute: typeof authenticatedDashboardSettingsIndexRouteImport
-      parentRoute: typeof authenticatedDashboardRouteRoute
+      preLoaderRoute: typeof appauthenticatedDashboardSettingsIndexRouteImport
+      parentRoute: typeof appauthenticatedDashboardRouteRoute
     }
-    '/(authenticated)/dashboard/services/': {
-      id: '/(authenticated)/dashboard/services/'
+    '/(app)/(authenticated)/dashboard/services/': {
+      id: '/(app)/(authenticated)/dashboard/services/'
       path: '/services'
       fullPath: '/dashboard/services/'
-      preLoaderRoute: typeof authenticatedDashboardServicesIndexRouteImport
-      parentRoute: typeof authenticatedDashboardRouteRoute
+      preLoaderRoute: typeof appauthenticatedDashboardServicesIndexRouteImport
+      parentRoute: typeof appauthenticatedDashboardRouteRoute
     }
-    '/(authenticated)/dashboard/profile/': {
-      id: '/(authenticated)/dashboard/profile/'
+    '/(app)/(authenticated)/dashboard/profile/': {
+      id: '/(app)/(authenticated)/dashboard/profile/'
       path: '/profile'
       fullPath: '/dashboard/profile/'
-      preLoaderRoute: typeof authenticatedDashboardProfileIndexRouteImport
-      parentRoute: typeof authenticatedDashboardRouteRoute
+      preLoaderRoute: typeof appauthenticatedDashboardProfileIndexRouteImport
+      parentRoute: typeof appauthenticatedDashboardRouteRoute
     }
-    '/(authenticated)/dashboard/products/': {
-      id: '/(authenticated)/dashboard/products/'
+    '/(app)/(authenticated)/dashboard/products/': {
+      id: '/(app)/(authenticated)/dashboard/products/'
       path: '/products'
       fullPath: '/dashboard/products/'
-      preLoaderRoute: typeof authenticatedDashboardProductsIndexRouteImport
-      parentRoute: typeof authenticatedDashboardRouteRoute
+      preLoaderRoute: typeof appauthenticatedDashboardProductsIndexRouteImport
+      parentRoute: typeof appauthenticatedDashboardRouteRoute
     }
-    '/(authenticated)/dashboard/orders/': {
-      id: '/(authenticated)/dashboard/orders/'
+    '/(app)/(authenticated)/dashboard/orders/': {
+      id: '/(app)/(authenticated)/dashboard/orders/'
       path: '/orders'
       fullPath: '/dashboard/orders/'
-      preLoaderRoute: typeof authenticatedDashboardOrdersIndexRouteImport
-      parentRoute: typeof authenticatedDashboardRouteRoute
+      preLoaderRoute: typeof appauthenticatedDashboardOrdersIndexRouteImport
+      parentRoute: typeof appauthenticatedDashboardRouteRoute
     }
-    '/(authenticated)/dashboard/discounts/': {
-      id: '/(authenticated)/dashboard/discounts/'
+    '/(app)/(authenticated)/dashboard/discounts/': {
+      id: '/(app)/(authenticated)/dashboard/discounts/'
       path: '/discounts'
       fullPath: '/dashboard/discounts/'
-      preLoaderRoute: typeof authenticatedDashboardDiscountsIndexRouteImport
-      parentRoute: typeof authenticatedDashboardRouteRoute
+      preLoaderRoute: typeof appauthenticatedDashboardDiscountsIndexRouteImport
+      parentRoute: typeof appauthenticatedDashboardRouteRoute
     }
-    '/(authenticated)/dashboard/categories/': {
-      id: '/(authenticated)/dashboard/categories/'
+    '/(app)/(authenticated)/dashboard/categories/': {
+      id: '/(app)/(authenticated)/dashboard/categories/'
       path: '/categories'
       fullPath: '/dashboard/categories/'
-      preLoaderRoute: typeof authenticatedDashboardCategoriesIndexRouteImport
-      parentRoute: typeof authenticatedDashboardRouteRoute
+      preLoaderRoute: typeof appauthenticatedDashboardCategoriesIndexRouteImport
+      parentRoute: typeof appauthenticatedDashboardRouteRoute
     }
-    '/(authenticated)/dashboard/attributes/': {
-      id: '/(authenticated)/dashboard/attributes/'
+    '/(app)/(authenticated)/dashboard/attributes/': {
+      id: '/(app)/(authenticated)/dashboard/attributes/'
       path: '/attributes'
       fullPath: '/dashboard/attributes/'
-      preLoaderRoute: typeof authenticatedDashboardAttributesIndexRouteImport
-      parentRoute: typeof authenticatedDashboardRouteRoute
+      preLoaderRoute: typeof appauthenticatedDashboardAttributesIndexRouteImport
+      parentRoute: typeof appauthenticatedDashboardRouteRoute
     }
-    '/(authenticated)/dashboard/categories/edit': {
-      id: '/(authenticated)/dashboard/categories/edit'
+    '/(app)/(authenticated)/dashboard/categories/edit': {
+      id: '/(app)/(authenticated)/dashboard/categories/edit'
       path: '/categories/edit'
       fullPath: '/dashboard/categories/edit'
-      preLoaderRoute: typeof authenticatedDashboardCategoriesEditRouteImport
-      parentRoute: typeof authenticatedDashboardRouteRoute
+      preLoaderRoute: typeof appauthenticatedDashboardCategoriesEditRouteImport
+      parentRoute: typeof appauthenticatedDashboardRouteRoute
     }
-    '/(authenticated)/dashboard/categories/add': {
-      id: '/(authenticated)/dashboard/categories/add'
+    '/(app)/(authenticated)/dashboard/categories/add': {
+      id: '/(app)/(authenticated)/dashboard/categories/add'
       path: '/categories/add'
       fullPath: '/dashboard/categories/add'
-      preLoaderRoute: typeof authenticatedDashboardCategoriesAddRouteImport
-      parentRoute: typeof authenticatedDashboardRouteRoute
+      preLoaderRoute: typeof appauthenticatedDashboardCategoriesAddRouteImport
+      parentRoute: typeof appauthenticatedDashboardRouteRoute
     }
-    '/(authenticated)/dashboard/attributes/edit': {
-      id: '/(authenticated)/dashboard/attributes/edit'
+    '/(app)/(authenticated)/dashboard/attributes/edit': {
+      id: '/(app)/(authenticated)/dashboard/attributes/edit'
       path: '/attributes/edit'
       fullPath: '/dashboard/attributes/edit'
-      preLoaderRoute: typeof authenticatedDashboardAttributesEditRouteImport
-      parentRoute: typeof authenticatedDashboardRouteRoute
+      preLoaderRoute: typeof appauthenticatedDashboardAttributesEditRouteImport
+      parentRoute: typeof appauthenticatedDashboardRouteRoute
     }
-    '/(authenticated)/dashboard/attributes/add': {
-      id: '/(authenticated)/dashboard/attributes/add'
+    '/(app)/(authenticated)/dashboard/attributes/add': {
+      id: '/(app)/(authenticated)/dashboard/attributes/add'
       path: '/attributes/add'
       fullPath: '/dashboard/attributes/add'
-      preLoaderRoute: typeof authenticatedDashboardAttributesAddRouteImport
-      parentRoute: typeof authenticatedDashboardRouteRoute
+      preLoaderRoute: typeof appauthenticatedDashboardAttributesAddRouteImport
+      parentRoute: typeof appauthenticatedDashboardRouteRoute
     }
   }
 }
 
-interface authenticatedDashboardRouteRouteChildren {
-  authenticatedDashboardIndexRoute: typeof authenticatedDashboardIndexRoute
-  authenticatedDashboardAttributesAddRoute: typeof authenticatedDashboardAttributesAddRoute
-  authenticatedDashboardAttributesEditRoute: typeof authenticatedDashboardAttributesEditRoute
-  authenticatedDashboardCategoriesAddRoute: typeof authenticatedDashboardCategoriesAddRoute
-  authenticatedDashboardCategoriesEditRoute: typeof authenticatedDashboardCategoriesEditRoute
-  authenticatedDashboardAttributesIndexRoute: typeof authenticatedDashboardAttributesIndexRoute
-  authenticatedDashboardCategoriesIndexRoute: typeof authenticatedDashboardCategoriesIndexRoute
-  authenticatedDashboardDiscountsIndexRoute: typeof authenticatedDashboardDiscountsIndexRoute
-  authenticatedDashboardOrdersIndexRoute: typeof authenticatedDashboardOrdersIndexRoute
-  authenticatedDashboardProductsIndexRoute: typeof authenticatedDashboardProductsIndexRoute
-  authenticatedDashboardProfileIndexRoute: typeof authenticatedDashboardProfileIndexRoute
-  authenticatedDashboardServicesIndexRoute: typeof authenticatedDashboardServicesIndexRoute
-  authenticatedDashboardSettingsIndexRoute: typeof authenticatedDashboardSettingsIndexRoute
-  authenticatedDashboardTagsIndexRoute: typeof authenticatedDashboardTagsIndexRoute
+interface appauthenticatedDashboardRouteRouteChildren {
+  appauthenticatedDashboardIndexRoute: typeof appauthenticatedDashboardIndexRoute
+  appauthenticatedDashboardAttributesAddRoute: typeof appauthenticatedDashboardAttributesAddRoute
+  appauthenticatedDashboardAttributesEditRoute: typeof appauthenticatedDashboardAttributesEditRoute
+  appauthenticatedDashboardCategoriesAddRoute: typeof appauthenticatedDashboardCategoriesAddRoute
+  appauthenticatedDashboardCategoriesEditRoute: typeof appauthenticatedDashboardCategoriesEditRoute
+  appauthenticatedDashboardAttributesIndexRoute: typeof appauthenticatedDashboardAttributesIndexRoute
+  appauthenticatedDashboardCategoriesIndexRoute: typeof appauthenticatedDashboardCategoriesIndexRoute
+  appauthenticatedDashboardDiscountsIndexRoute: typeof appauthenticatedDashboardDiscountsIndexRoute
+  appauthenticatedDashboardOrdersIndexRoute: typeof appauthenticatedDashboardOrdersIndexRoute
+  appauthenticatedDashboardProductsIndexRoute: typeof appauthenticatedDashboardProductsIndexRoute
+  appauthenticatedDashboardProfileIndexRoute: typeof appauthenticatedDashboardProfileIndexRoute
+  appauthenticatedDashboardServicesIndexRoute: typeof appauthenticatedDashboardServicesIndexRoute
+  appauthenticatedDashboardSettingsIndexRoute: typeof appauthenticatedDashboardSettingsIndexRoute
+  appauthenticatedDashboardTagsIndexRoute: typeof appauthenticatedDashboardTagsIndexRoute
 }
 
-const authenticatedDashboardRouteRouteChildren: authenticatedDashboardRouteRouteChildren =
+const appauthenticatedDashboardRouteRouteChildren: appauthenticatedDashboardRouteRouteChildren =
   {
-    authenticatedDashboardIndexRoute: authenticatedDashboardIndexRoute,
-    authenticatedDashboardAttributesAddRoute:
-      authenticatedDashboardAttributesAddRoute,
-    authenticatedDashboardAttributesEditRoute:
-      authenticatedDashboardAttributesEditRoute,
-    authenticatedDashboardCategoriesAddRoute:
-      authenticatedDashboardCategoriesAddRoute,
-    authenticatedDashboardCategoriesEditRoute:
-      authenticatedDashboardCategoriesEditRoute,
-    authenticatedDashboardAttributesIndexRoute:
-      authenticatedDashboardAttributesIndexRoute,
-    authenticatedDashboardCategoriesIndexRoute:
-      authenticatedDashboardCategoriesIndexRoute,
-    authenticatedDashboardDiscountsIndexRoute:
-      authenticatedDashboardDiscountsIndexRoute,
-    authenticatedDashboardOrdersIndexRoute:
-      authenticatedDashboardOrdersIndexRoute,
-    authenticatedDashboardProductsIndexRoute:
-      authenticatedDashboardProductsIndexRoute,
-    authenticatedDashboardProfileIndexRoute:
-      authenticatedDashboardProfileIndexRoute,
-    authenticatedDashboardServicesIndexRoute:
-      authenticatedDashboardServicesIndexRoute,
-    authenticatedDashboardSettingsIndexRoute:
-      authenticatedDashboardSettingsIndexRoute,
-    authenticatedDashboardTagsIndexRoute: authenticatedDashboardTagsIndexRoute,
+    appauthenticatedDashboardIndexRoute: appauthenticatedDashboardIndexRoute,
+    appauthenticatedDashboardAttributesAddRoute:
+      appauthenticatedDashboardAttributesAddRoute,
+    appauthenticatedDashboardAttributesEditRoute:
+      appauthenticatedDashboardAttributesEditRoute,
+    appauthenticatedDashboardCategoriesAddRoute:
+      appauthenticatedDashboardCategoriesAddRoute,
+    appauthenticatedDashboardCategoriesEditRoute:
+      appauthenticatedDashboardCategoriesEditRoute,
+    appauthenticatedDashboardAttributesIndexRoute:
+      appauthenticatedDashboardAttributesIndexRoute,
+    appauthenticatedDashboardCategoriesIndexRoute:
+      appauthenticatedDashboardCategoriesIndexRoute,
+    appauthenticatedDashboardDiscountsIndexRoute:
+      appauthenticatedDashboardDiscountsIndexRoute,
+    appauthenticatedDashboardOrdersIndexRoute:
+      appauthenticatedDashboardOrdersIndexRoute,
+    appauthenticatedDashboardProductsIndexRoute:
+      appauthenticatedDashboardProductsIndexRoute,
+    appauthenticatedDashboardProfileIndexRoute:
+      appauthenticatedDashboardProfileIndexRoute,
+    appauthenticatedDashboardServicesIndexRoute:
+      appauthenticatedDashboardServicesIndexRoute,
+    appauthenticatedDashboardSettingsIndexRoute:
+      appauthenticatedDashboardSettingsIndexRoute,
+    appauthenticatedDashboardTagsIndexRoute:
+      appauthenticatedDashboardTagsIndexRoute,
   }
 
-const authenticatedDashboardRouteRouteWithChildren =
-  authenticatedDashboardRouteRoute._addFileChildren(
-    authenticatedDashboardRouteRouteChildren,
+const appauthenticatedDashboardRouteRouteWithChildren =
+  appauthenticatedDashboardRouteRoute._addFileChildren(
+    appauthenticatedDashboardRouteRouteChildren,
   )
 
+interface appRouteRouteChildren {
+  appIndexRoute: typeof appIndexRoute
+  appauthenticatedDashboardRouteRoute: typeof appauthenticatedDashboardRouteRouteWithChildren
+  appanonymousForget_passowrdRoute: typeof appanonymousForget_passowrdRoute
+  appanonymousLoginRoute: typeof appanonymousLoginRoute
+}
+
+const appRouteRouteChildren: appRouteRouteChildren = {
+  appIndexRoute: appIndexRoute,
+  appauthenticatedDashboardRouteRoute:
+    appauthenticatedDashboardRouteRouteWithChildren,
+  appanonymousForget_passowrdRoute: appanonymousForget_passowrdRoute,
+  appanonymousLoginRoute: appanonymousLoginRoute,
+}
+
+const appRouteRouteWithChildren = appRouteRoute._addFileChildren(
+  appRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
-  authenticatedDashboardRouteRoute:
-    authenticatedDashboardRouteRouteWithChildren,
-  anonymousForget_passowrdRoute: anonymousForget_passowrdRoute,
-  anonymousLoginRoute: anonymousLoginRoute,
+  appRouteRoute: appRouteRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

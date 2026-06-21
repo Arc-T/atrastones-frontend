@@ -1,4 +1,6 @@
+import type { QueryClient } from "@tanstack/react-query";
+
 export interface AuthContext {
-  user: string | null;
-  isLoading: boolean;
+  queryClient: QueryClient;
 }
+
