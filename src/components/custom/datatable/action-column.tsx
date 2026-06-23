@@ -1,6 +1,5 @@
 import * as React from "react";
-import { useNavigate } from "@tanstack/react-router";
-import { Edit, MoreHorizontal, Trash2 } from "lucide-react";
+import { Edit, LucideEye, MoreHorizontal, Trash2 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -15,6 +14,7 @@ import {
 import { DeleteConfirmationDialog } from "../elements/destructive-alert";
 import { useTranslation } from "react-i18next";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useNavigate } from "react-router";
 
 interface RowActionsProps<T extends { id: number; name: string }> {
   item: T;
@@ -58,14 +58,17 @@ export function RowActions<T extends { id: number; name: string }>({
           <DropdownMenuSeparator />
 
           <DropdownMenuItem
-            onSelect={() =>
-              navigate({
-                to: `/${resource}/${id}/edit`,
-              })
-            }
+            onSelect={() => navigate(`/${resource}/${id}/edit`)}
           >
             <Edit className="ml-2 size-4" />
             {t("edit")}
+          </DropdownMenuItem>
+
+          <DropdownMenuItem
+            onSelect={() => navigate(`/${resource}/${id}/show`)}
+          >
+            <LucideEye className="ml-2 size-4" />
+            {t("show")}
           </DropdownMenuItem>
 
           <DropdownMenuItem

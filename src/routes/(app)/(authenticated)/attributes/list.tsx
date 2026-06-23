@@ -1,4 +1,3 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 import PageHeader from "@/components/custom/page-header";
 import { attributeListColumn } from "./-column";
@@ -10,12 +9,7 @@ import ActionBar from "@/components/custom/datatable/search-bar";
 import AttributeSearch from "./-search";
 import { UNPAGED } from "@/types/page";
 
-export const Route = createFileRoute("/(app)/(authenticated)/dashboard/attributes/")({
-  component: AttributesIndex,
-  context: () => ({ breadcrumb: "attributes" }),
-});
-
-function AttributesIndex() {
+export function AttributesList() {
   const { t } = useTranslation();
   const [filter, setFilter] = useState<Partial<AttributeFilter>>(UNPAGED);
   const { isLoading, data: attributes } = useGetAttributes(filter);

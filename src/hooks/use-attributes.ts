@@ -4,6 +4,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const attributeKeys = {
   all: ["attributes"] as const,
+  one: ["attribute"] as const,
   list: (filter?: Partial<AttributeFilter>) =>
     [...attributeKeys.all, "list", filter] as const,
 };
@@ -30,6 +31,14 @@ export const useGetAttributes = (filter?: Partial<AttributeFilter>) => {
   return useQuery({
     queryKey: attributeKeys.list(filter),
     queryFn: () => AttributeService.getAll(filter),
+  });
+};
+
+export const useGetAttribute = (id: number) => {
+  return useQuery({
+    queryKey: attributeKeys.one,
+    queryFn: () => AttributeService.getById(id),
+    enabled: !!id,
   });
 };
 

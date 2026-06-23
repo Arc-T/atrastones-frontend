@@ -1,31 +1,14 @@
-import {
-  createFileRoute,
-  Outlet,
-  useRouterState,
-} from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
-
 import { AppSidebar } from "@/components/layout/app-sidebar";
 import { TopBar } from "@/components/layout/topbar";
-import { NavigationProgress } from "@/components/layout/use-navigation";
 import { ThemeProvider } from "@/components/theme-provider";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { Toaster } from "@/components/ui/sonner";
-
 import { useIsMobile } from "@/hooks/use-mobile";
-import { RouteError } from "./-error";
+import { Outlet } from "react-router";
 
-export const Route = createFileRoute("/(app)/(authenticated)/dashboard")({
-  component: Layout,
-  errorComponent: RouteError,
-});
-
-function Layout() {
+export function DashboardLayout() {
   const isMobile = useIsMobile();
-  const isNavigating = useRouterState({
-    select: (s) => s.isLoading,
-  });
-
   const { i18n } = useTranslation();
   const dir = i18n.dir();
   const isRTL = dir === "rtl";
@@ -41,7 +24,7 @@ function Layout() {
           dir={dir}
         />
 
-        <NavigationProgress loading={isNavigating} />
+        {/*<NavigationProgress loading={isNavigating} />*/}
 
         <div
           className="flex min-h-dvh w-full bg-background antialiased"

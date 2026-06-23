@@ -10,17 +10,10 @@ import {
   useCreateAttributeForm,
   type CreateAttributeFormValues,
 } from "@/types/attribute";
-import { createFileRoute } from "@tanstack/react-router";
 import { PenBoxIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-export const Route = createFileRoute(
-  "/(app)/(authenticated)/dashboard/attributes/add",
-)({
-  component: RouteComponent,
-});
-
-function RouteComponent() {
+export function AttributesCreate() {
   const { t } = useTranslation();
   const { mutate: createAttribute, isPending } = useMutateCreateAttribute();
   const {

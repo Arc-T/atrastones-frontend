@@ -14,8 +14,8 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
-import { Link } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router";
 
 export function NavMain({
   items,
@@ -78,13 +78,13 @@ export function NavMain({
                                 to={
                                   `/dashboard/${item.url}${subItem.url}` as string
                                 }
-                                activeProps={{
-                                  className:
-                                    "bg-primary text-white dark:text-black",
-                                }}
-                                activeOptions={{
-                                  exact: true,
-                                }}
+                                // activeProps={{
+                                //   className:
+                                //     "bg-primary text-white dark:text-black",
+                                // }}
+                                // activeOptions={{
+                                //   exact: true,
+                                // }}
                               >
                                 {t(subItem.title)}
                               </Link>
@@ -101,12 +101,12 @@ export function NavMain({
                     <Link
                       to={`/dashboard/${item.url}` as string}
                       className="flex items-center gap-2"
-                      activeProps={{
-                        className: "bg-primary text-white dark:text-black",
-                      }}
-                      activeOptions={{
-                        exact: true,
-                      }}
+                      // activeProps={{
+                      //   className: "bg-primary text-white dark:text-black",
+                      // }}
+                      // activeOptions={{
+                      //   exact: true,
+                      // }}
                     >
                       {item.icon && <item.icon />}
                       <span>{t(item.title)}</span>

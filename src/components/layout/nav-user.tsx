@@ -24,7 +24,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { useLogout } from "@/hooks/use-user";
-import { useNavigate } from "@tanstack/react-router";
+import { useNavigate } from "react-router";
 
 export function NavUser({
   user,
@@ -36,12 +36,15 @@ export function NavUser({
   };
 }) {
   const { isMobile } = useSidebar();
-  const { error, mutate: logout } = useLogout();
+  const { mutate: logout } = useLogout();
   const navigate = useNavigate();
 
   function onLogoutHandle() {
-    logout();
-    if (!error) navigate({ to: "/login" });
+    logout(undefined, {
+      onSuccess: () => {
+        navigate("/login", { replace: true });
+      },
+    });
   }
 
   return (

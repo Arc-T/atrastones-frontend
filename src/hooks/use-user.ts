@@ -12,7 +12,7 @@ export const useValidateUser = () => {
   });
 };
 
-export const useAuthenticate = () => {
+export const useValidateSession = () => {
   return useQuery({
     queryKey: ["user"],
     queryFn: UserService.validateUserFromSession,

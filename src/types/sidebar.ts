@@ -76,8 +76,8 @@ export const sidebarItems = {
       url: "/categories",
       icon: FolderTree,
       items: [
-        { title: "list", url: "/" },
-        { title: "create", url: "/add" },
+        { title: "list", url: "/list" },
+        { title: "create", url: "/create" },
       ],
     },
     {
@@ -86,8 +86,8 @@ export const sidebarItems = {
       url: "/attributes",
       icon: ListFilter,
       items: [
-        { title: "list", url: "/" },
-        { title: "create", url: "/add" },
+        { title: "list", url: "/list" },
+        { title: "create", url: "/create" },
       ],
     },
     // {

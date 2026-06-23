@@ -10,7 +10,7 @@ import {
 import { useTranslation } from "react-i18next";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Link, createFileRoute } from "@tanstack/react-router";
+import { Link } from "react-router";
 
 // Sample chart & order data
 const CHART_DATA = [
@@ -67,50 +67,45 @@ const fadeUp = {
   }),
 };
 
-export const Route = createFileRoute("/(app)/(authenticated)/dashboard/")({
-  component: DashboardIndex,
-  context: () => ({ breadcrumb: "home" }),
-});
-
 // -----------------
 // Components
 // -----------------
 function StatCard({ stat, index }: { stat: any; index: number }) {
   return (
-      <Card className="border-0 shadow-sm hover:shadow-lg transition-all duration-300 bg-white dark:bg-slate-900 overflow-hidden group">
-        <CardContent className="p-5">
-          <div className="flex items-start justify-between">
-            <div className="space-y-1">
-              <p className="text-[11px] font-semibold uppercase tracking-widest text-slate-400 dark:text-slate-500">
-                {stat.label}
-              </p>
-              <p className="text-3xl font-bold text-slate-900 dark:text-white tracking-tight">
-                {stat.value}
-              </p>
-              <div className="flex items-center gap-1 pt-1">
-                {stat.up ? (
-                  <ArrowUpRight className="w-3.5 h-3.5 text-emerald-500" />
-                ) : (
-                  <ArrowDownRight className="w-3.5 h-3.5 text-red-500" />
-                )}
-                <span
-                  className={`text-xs font-semibold ${stat.up ? "text-emerald-500" : "text-red-500"}`}
-                >
-                  {stat.change}
-                </span>
-                <span className="text-[11px] text-slate-400 ms-1">
-                  vs last month
-                </span>
-              </div>
-            </div>
-            <div
-              className={`w-12 h-12 rounded-2xl bg-linear-to-br ${stat.gradient} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300`}
-            >
-              <stat.icon className="w-5 h-5 text-white" />
+    <Card className="border-0 shadow-sm hover:shadow-lg transition-all duration-300 bg-white dark:bg-slate-900 overflow-hidden group">
+      <CardContent className="p-5">
+        <div className="flex items-start justify-between">
+          <div className="space-y-1">
+            <p className="text-[11px] font-semibold uppercase tracking-widest text-slate-400 dark:text-slate-500">
+              {stat.label}
+            </p>
+            <p className="text-3xl font-bold text-slate-900 dark:text-white tracking-tight">
+              {stat.value}
+            </p>
+            <div className="flex items-center gap-1 pt-1">
+              {stat.up ? (
+                <ArrowUpRight className="w-3.5 h-3.5 text-emerald-500" />
+              ) : (
+                <ArrowDownRight className="w-3.5 h-3.5 text-red-500" />
+              )}
+              <span
+                className={`text-xs font-semibold ${stat.up ? "text-emerald-500" : "text-red-500"}`}
+              >
+                {stat.change}
+              </span>
+              <span className="text-[11px] text-slate-400 ms-1">
+                vs last month
+              </span>
             </div>
           </div>
-        </CardContent>
-      </Card>
+          <div
+            className={`w-12 h-12 rounded-2xl bg-linear-to-br ${stat.gradient} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300`}
+          >
+            <stat.icon className="w-5 h-5 text-white" />
+          </div>
+        </div>
+      </CardContent>
+    </Card>
   );
 }
 
@@ -167,7 +162,7 @@ function AlertCard({
 // -----------------
 // Main Component
 // -----------------
-function DashboardIndex() {
+export function DashboardIndex() {
   const { t } = useTranslation();
 
   // Fetch products & orders

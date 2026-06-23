@@ -6,9 +6,9 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { Link, useMatches } from "@tanstack/react-router";
 import { Fragment } from "react";
 import { useTranslation } from "react-i18next";
+import { Link, useMatches } from "react-router";
 
 interface RouteBreadcrumbContext {
   breadcrumb: string;
