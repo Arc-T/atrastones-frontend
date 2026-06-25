@@ -26,6 +26,7 @@ export const attributeFormSchema = z.object({
   name: z.string().min(2, { message: "نام ویژگی باید حداقل ۲ کاراکتر باشد" }),
   isFilterable: z.boolean(),
   categoryId: z.number({ error: "انتخاب دسته‌بندی الزامی است" }).positive(),
+  type: z.string(),
 });
 
 export type CreateAttributeFormValues = z.infer<typeof attributeFormSchema>;
@@ -39,12 +40,14 @@ export const useCreateAttributeForm = (attribute?: Attribute) =>
           name: attribute.name,
           categoryId: attribute.categoryId,
           isFilterable: attribute.isFilterable,
+          type: attribute.type,
         }
       : undefined,
     defaultValues: {
       name: "",
       categoryId: undefined,
       isFilterable: false,
+      type: "",
     },
   });
 

@@ -2,32 +2,18 @@ import { RHFSubmitButton } from "@/components/custom/form/button";
 import { RHFInput } from "@/components/custom/form/input";
 import { RHFSelect } from "@/components/custom/form/select";
 import { RHFSwitch } from "@/components/custom/form/switch";
-import {
-  Field,
-  FieldContent,
-  FieldDescription,
-  FieldError,
-  FieldGroup,
-  FieldLabel,
-} from "@/components/ui/field";
-import { useMutateCreateAttribute } from "@/hooks/use-attributes";
+import { FieldGroup } from "@/components/ui/field";
+import { useCreateAttribute } from "@/hooks/use-attributes";
 import { useGetCategories } from "@/hooks/use-categories";
 import { mapToSelectOptions } from "@/lib/utils";
 import {
   useCreateAttributeForm,
   type CreateAttributeFormValues,
 } from "@/types/attribute";
-import { createFileRoute } from "@tanstack/react-router";
 import { PenBoxIcon } from "lucide-react";
 
-export const Route = createFileRoute(
-  "/(app)/(authenticated)/dashboard/categories/add",
-)({
-  component: RouteComponent,
-});
-
-function RouteComponent() {
-  const { isPending: isSubmitting, mutate } = useMutateCreateAttribute();
+export function CategoriesCreate() {
+  const { isPending: isSubmitting, mutate } = useCreateAttribute();
   const { data: categories, isPending, isError } = useGetCategories();
   const form = useCreateAttributeForm();
 

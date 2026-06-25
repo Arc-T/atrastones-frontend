@@ -109,7 +109,7 @@ export function LoginPage() {
               />
 
               <RHFSubmitButton
-                isPending={isPending}
+                isSubmitting={isPending}
                 defaultText="login"
                 loadingText="loading"
                 disabled={!isValid}

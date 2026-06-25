@@ -4,16 +4,15 @@ import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 
 interface RHFSubmitButtonProps {
-  isPending: boolean;
+  isSubmitting: boolean;
   loadingText?: string;
   defaultText?: string;
-
   disabled?: boolean;
   className?: string;
 }
 
 export function RHFSubmitButton({
-  isPending,
+  isSubmitting,
   loadingText = "sending",
   defaultText = "saving",
   disabled,
@@ -23,15 +22,15 @@ export function RHFSubmitButton({
   return (
     <Button
       type="submit"
-      disabled={disabled || isPending}
+      disabled={disabled || isSubmitting}
       className={cn(
         "w-full font-semibold py-3 flex items-center justify-center shadow-md transition-all hover:shadow-lg focus-visible:ring-2 focus-visible:ring-primary/50",
-        isPending && "opacity-60 cursor-not-allowed",
+        isSubmitting && "opacity-60 cursor-not-allowed",
         className,
       )}
     >
-      {isPending ? t(loadingText) : t(defaultText)}
-      {isPending ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
+      {isSubmitting ? t(loadingText) : t(defaultText)}
+      {isSubmitting ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
     </Button>
   );
 }

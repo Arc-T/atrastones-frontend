@@ -1,19 +1,13 @@
 import {
-  AudioWaveform,
   BarChart2,
   Briefcase,
-  Command,
   FolderTree,
-  Frame,
   GalleryVerticalEnd,
   LayoutDashboard,
   ListFilter,
-  Map,
   MessageSquare,
   Package,
   Percent,
-  PieChart,
-  Settings,
   ShoppingCart,
   Tags,
   Users,
@@ -27,7 +21,7 @@ export const sidebarItems = {
   },
   teams: [
     {
-      name: "Atra Stones",
+      name: "Sashia E-Commerce",
       logo: GalleryVerticalEnd,
       plan: "Admin",
     },
@@ -51,111 +45,106 @@ export const sidebarItems = {
       icon: LayoutDashboard,
       isActive: true,
     },
-    // {
-    //   group: "general",
-    //   title: "analytics",
-    //   url: "#",
-    //   icon: BarChart2,
-    // },
-    // {
-    //   group: "general",
-    //   title: "reviews",
-    //   url: "#",
-    //   icon: MessageSquare,
-    // },
-    // {
-    //   group: "general",
-    //   title: "settings",
-    //   url: "#",
-    //   icon: Settings,
-    // },
-    // Catalog
     {
-      group: "catalog",
+      group: "general",
+      title: "orders",
+      url: "#",
+      icon: ShoppingCart,
+      items: [
+        { title: "General", url: "#" },
+        { title: "Team", url: "#" },
+      ],
+    },
+    {
+      group: "general",
+      title: "customers",
+      url: "#",
+      icon: Users,
+      items: [
+        { title: "General", url: "#" },
+        { title: "Team", url: "#" },
+      ],
+    },
+    // Shop
+    {
+      group: "shop",
       title: "categories",
       url: "/categories",
       icon: FolderTree,
       items: [
         { title: "list", url: "/list" },
         { title: "create", url: "/create" },
+        { title: "show", url: "/show" },
       ],
     },
     {
-      group: "catalog",
+      group: "shop",
       title: "attributes",
       url: "/attributes",
       icon: ListFilter,
       items: [
         { title: "list", url: "/list" },
         { title: "create", url: "/create" },
+        { title: "show", url: "/show" },
+        { title: "edit", url: "/edit" },
       ],
     },
-    // {
-    //   group: "catalog",
-    //   title: "tags",
-    //   url: "#",
-    //   icon: Tags,
-    //   items: [
-    //     { title: "General", url: "#" },
-    //     { title: "Team", url: "#" },
-    //     { title: "Billing", url: "#" },
-    //     { title: "Limits", url: "#" },
-    //   ],
-    // },
-    // {
-    //   group: "catalog",
-    //   title: "products",
-    //   url: "#",
-    //   icon: Package,
-    //   items: [
-    //     { title: "General", url: "#" },
-    //     { title: "Team", url: "#" },
-    //     { title: "Billing", url: "#" },
-    //     { title: "Limits", url: "#" },
-    //   ],
-    // },
-    // {
-    //   group: "catalog",
-    //   title: "services",
-    //   url: "#",
-    //   icon: Briefcase,
-    //   items: [
-    //     { title: "General", url: "#" },
-    //     { title: "Team", url: "#" },
-    //     { title: "Billing", url: "#" },
-    //     { title: "Limits", url: "#" },
-    //   ],
-    // },
-    // Sales
-    // {
-    //   group: "sales",
-    //   title: "orders",
-    //   url: "#",
-    //   icon: ShoppingCart,
-    //   items: [
-    //     { title: "General", url: "#" },
-    //     { title: "Team", url: "#" },
-    //   ],
-    // },
-    // {
-    //   group: "sales",
-    //   title: "discounts",
-    //   url: "#",
-    //   icon: Percent,
-    //   items: [
-    //     { title: "General", url: "#" },
-    //     { title: "Team", url: "#" },
-    //   ],
-    // },
-    // {
-    //   group: "sales",
-    //   title: "customers",
-    //   url: "#",
-    //   icon: Users,
-    //   items: [
-    //     { title: "General", url: "#" },
-    //     { title: "Team", url: "#" },
-    //   ],
-    // },
+    {
+      group: "shop",
+      title: "tags",
+      url: "/tags",
+      icon: Tags,
+      items: [
+        { title: "list", url: "/list" },
+        { title: "create", url: "/create" },
+        { title: "show", url: "/show" },
+      ],
+    },
+    {
+      group: "shop",
+      title: "products",
+      url: "/products",
+      icon: Package,
+      items: [
+        { title: "list", url: "/list" },
+        { title: "create", url: "/create" },
+        { title: "show", url: "/show" },
+      ],
+    },
+    {
+      group: "shop",
+      title: "services",
+      url: "/services",
+      icon: Briefcase,
+      items: [
+        { title: "list", url: "/list" },
+        { title: "create", url: "/create" },
+        { title: "show", url: "/show" },
+      ],
+    },
+    //Financial
+    {
+      group: "financial",
+      title: "discounts",
+      url: "#",
+      icon: Percent,
+      items: [
+        { title: "General", url: "#" },
+        { title: "Team", url: "#" },
+      ],
+    },
+    //Report
+    {
+      group: "report",
+      title: "analytics",
+      url: "#",
+      icon: BarChart2,
+    },
+    {
+      group: "report",
+      title: "reviews",
+      url: "#",
+      icon: MessageSquare,
+    },
   ],
 };

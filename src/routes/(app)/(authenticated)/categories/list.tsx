@@ -1,4 +1,3 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 import PageHeader from "@/components/custom/page-header";
 import DataTable from "@/components/custom/datatable/table";
@@ -9,12 +8,7 @@ import type { CategoryFilter } from "@/types/category";
 import { useGetCategories } from "@/hooks/use-categories";
 import { categoryListColumn } from "./-column";
 
-export const Route = createFileRoute("/(app)/(authenticated)/dashboard/categories/")({
-  component: CategoriesIndex,
-  context: () => ({ breadcrumb: "attributes" }),
-});
-
-function CategoriesIndex() {
+export function CategoriesList() {
   const { t } = useTranslation();
   const [filter, setFilter] = useState<Partial<CategoryFilter>>({});
   const { isLoading, data: attributes } = useGetCategories(filter);

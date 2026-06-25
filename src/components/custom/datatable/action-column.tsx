@@ -58,14 +58,14 @@ export function RowActions<T extends { id: number; name: string }>({
           <DropdownMenuSeparator />
 
           <DropdownMenuItem
-            onSelect={() => navigate(`/${resource}/${id}/edit`)}
+            onSelect={() => navigate(`/dashboard/${resource}/${id}/edit`)}
           >
             <Edit className="ml-2 size-4" />
             {t("edit")}
           </DropdownMenuItem>
 
           <DropdownMenuItem
-            onSelect={() => navigate(`/${resource}/${id}/show`)}
+            onSelect={() => navigate(`/dashboard/${resource}/${id}/show`)}
           >
             <LucideEye className="ml-2 size-4" />
             {t("show")}

@@ -1,44 +1,11 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Plus, Package, Pencil, Trash2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import PageWrapper from "@/components/custom/page-wrappers";
 import Breadcrumb from "@/components/custom/auto-breadcrumb";
 import PageHeader from "@/components/custom/page-header";
 import { Button } from "@/components/ui/button";
-import DataTable from "@/components/custom/data-table";
-import { Link, createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/(app)/(authenticated)/dashboard/products/")({
-  component: ProductsIndex,
-});
-
-function ProductsIndex() {
+export function ProductsList() {
   const { t } = useTranslation();
-  const queryClient = useQueryClient();
-
-  const { data: products = [], isLoading } = useQuery({
-    queryKey: ["products"],
-    queryFn: () => console.log("products"),
-  });
-
-  const { data: categories = [] } = useQuery({
-    queryKey: ["categories"],
-    queryFn: () => console.log("products"),
-  });
-
-  const deleteMutation = useMutation({
-    mutationFn: () => console.log("products"),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["products"] }),
-  });
-
-  const getCategoryName = (id) => {
-    const cat = categories.find((c) => c.id === id);
-    return cat
-      ? lang === "fa"
-        ? cat.name_fa || cat.name_en
-        : cat.name_en
-      : "—";
-  };
 
   const columns = [
     {

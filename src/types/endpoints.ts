@@ -48,6 +48,7 @@ export const api = {
     update: (id: number) => `/attributes/${id}`,
     details: (id: number) => `/attributes/${id}`,
     delete: (id: number) => `/attributes/${id}`,
+    types: "/attributes/types",
     create: "/attributes",
   },
   categories: {

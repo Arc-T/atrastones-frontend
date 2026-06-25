@@ -2,25 +2,34 @@ import { RHFSubmitButton } from "@/components/custom/form/button";
 import { RHFInput } from "@/components/custom/form/input";
 import { RHFSelect } from "@/components/custom/form/select";
 import { RHFSwitch } from "@/components/custom/form/switch";
+import PageHeader from "@/components/custom/page-header";
 import { FieldGroup } from "@/components/ui/field";
-import { useMutateCreateAttribute } from "@/hooks/use-attributes";
+import {
+  useCreateAttribute,
+  useGetAttributeTypes,
+} from "@/hooks/use-attributes";
 import { useGetCategories } from "@/hooks/use-categories";
 import { mapToSelectOptions } from "@/lib/utils";
 import {
   useCreateAttributeForm,
   type CreateAttributeFormValues,
 } from "@/types/attribute";
-import { PenBoxIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 export function AttributesCreate() {
   const { t } = useTranslation();
-  const { mutate: createAttribute, isPending } = useMutateCreateAttribute();
+  const { mutate: createAttribute, isPending } = useCreateAttribute();
   const {
     data: categories,
     isPending: isPendingCategories,
-    isError,
+    isError: isErrorCategories,
   } = useGetCategories();
+
+  const {
+    data: attributeTypes,
+    isPending: isPendingAttributeTypes,
+    isError: isErrorAttributeTypes,
+  } = useGetAttributeTypes();
 
   const {
     control,
@@ -34,20 +43,7 @@ export function AttributesCreate() {
 
   return (
     <>
-      <div className="flex items-center gap-4 pb-3">
-        <div className="p-3 bg-primary/10 rounded-xl">
-          <PenBoxIcon className="w-6 h-6 text-primary" aria-hidden />
-        </div>
-        <div>
-          <h2 className="text-xl font-semibold text-foreground">
-            {t("create_new_attribute")}
-          </h2>
-          <p className="text-sm text-muted-foreground">
-            {t("please_enter_attribute_details")}
-          </p>
-        </div>
-      </div>
-
+      <PageHeader title={t("create_new_attribute")} />
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="w-full flex flex-col gap-4 rounded-2xl border border-border bg-card shadow-sm p-4 sm:p-6"
@@ -64,23 +60,42 @@ export function AttributesCreate() {
 
           <RHFSelect
             name="categoryId"
-            isPending={isPending}
+            isPending={isPendingCategories}
             control={control}
-            isError={isError}
+            isError={isErrorCategories}
             label={"category"}
             description={"select_category"}
             options={mapToSelectOptions(categories?.content)}
           />
 
+          <RHFSelect
+            name="type"
+            isPending={isPendingAttributeTypes}
+            control={control}
+            isError={isErrorAttributeTypes}
+            label={"attribute_type"}
+            description={"attribute_type_description"}
+            valueType="string"
+            options={
+              attributeTypes?.map((item) => ({
+                value: item,
+                label: item,
+              })) ?? []
+            }
+          />
+
           <RHFSwitch
             name="isFilterable"
             control={control}
-            label="multi_factor_authentication"
-            description="enable_mfa_description"
+            label="attribute_is_filterable"
+            description="attribute_is_filterable_description"
           />
-
-          <RHFSubmitButton isPending={isPending} disabled={!isValid} />
         </FieldGroup>
+        <RHFSubmitButton
+          isSubmitting={isPending}
+          disabled={!isValid}
+          className="mt-4"
+        />
       </form>
     </>
   );
