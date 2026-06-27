@@ -19,7 +19,7 @@ import { useNavigate } from "react-router";
 interface RowActionsProps<T extends { id: number; name: string }> {
   item: T;
   resource: string;
-  remove: (id: number) => Promise<T>;
+  remove: (id: number) => Promise<void>;
 }
 
 export function RowActions<T extends { id: number; name: string }>({

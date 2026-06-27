@@ -39,7 +39,7 @@ export const attributeListColumn: ColumnDef<Attribute>[] = [
   },
   {
     id: "action",
-    header: () => <span className="sr-only">settings</span>,
+    header: "actions",
     enableSorting: false,
     enableHiding: false,
     cell: ({ row }) => {

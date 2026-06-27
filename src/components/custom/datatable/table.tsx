@@ -6,10 +6,12 @@ import {
   type ColumnDef,
   type SortingState,
 } from "@tanstack/react-table";
-import { ArrowUpDown, ArrowUp, ArrowDown, Package } from "lucide-react";
+import type { UseQueryResult } from "@tanstack/react-query";
+import { ArrowDown, ArrowUp, ArrowUpDown, Package } from "lucide-react";
 import { motion } from "motion/react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { toast } from "sonner";
 
 import {
   Table,
@@ -22,30 +24,33 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 
 import Pagination from "./pagination";
-import type { PaginatedRequest, PaginatedResponse } from "@/types/page";
+import ActionBar from "./search-bar";
+import { DataTableFetchError } from "./fetch-error";
+
 import { cn } from "@/lib/utils";
+import type { PaginatedRequest, PaginatedResponse } from "@/types/page";
 
-/* -------------------- props -------------------- */
+interface RowData {
+  id: number;
+}
 
-interface DataTableProps<T> {
+interface Props<T extends RowData> {
+  query: UseQueryResult<PaginatedResponse<T>>;
   columns: ColumnDef<T, string>[];
-  data?: PaginatedResponse<T>;
-  isLoading: boolean;
-  onRowClick?: (row: T) => void;
+  searchComponent?: React.ReactNode;
+  onRowClick?: (id: number) => void;
   onPaginationClick: (page: PaginatedRequest) => void;
   pageSize?: number;
 }
 
-/* -------------------- component -------------------- */
-
-export default function DataTable<T>({
+export default function DataTable<T extends RowData>({
+  query,
   columns,
-  data,
-  isLoading,
+  searchComponent,
   onRowClick,
   onPaginationClick,
   pageSize = 5,
-}: DataTableProps<T>) {
+}: Props<T>) {
   const { t } = useTranslation();
 
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -54,85 +59,69 @@ export default function DataTable<T>({
     size: pageSize,
   });
 
-  const rows = data?.content ?? [];
-  const totalPages = data?.page?.totalPages ?? 0;
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
   const table = useReactTable({
-    data: rows,
+    data: query.data?.content ?? [],
     columns,
     state: { sorting },
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     manualPagination: true,
-    pageCount: totalPages,
+    pageCount: query.data?.page?.totalPages ?? 0,
   });
 
-  const visibleRows = table.getRowModel().rows;
-
-  /* -------------------- pagination sync -------------------- */
-
   const updatePagination = (next: Partial<PaginatedRequest>) => {
-    const updated = { ...page, ...next };
+    const updated = {
+      ...page,
+      ...next,
+    };
+
     setPage(updated);
     onPaginationClick(updated);
   };
 
-  /* -------------------- helpers -------------------- */
+  const handleRefresh = async () => {
+    setIsRefreshing(true);
 
-  const SortIcon = (dir: false | "asc" | "desc") =>
-    dir === "asc" ? (
-      <ArrowUp className="w-3 h-3 text-indigo-500" />
-    ) : dir === "desc" ? (
-      <ArrowDown className="w-3 h-3 text-indigo-500" />
-    ) : (
-      <ArrowUpDown className="w-3 h-3 opacity-40" />
-    );
+    try {
+      await query.refetch();
+      toast.success(t("data_refresh_success"));
+    } catch {
+      toast.error(t("data_refresh_fail"));
+    } finally {
+      setIsRefreshing(false);
+    }
+  };
 
-  const EmptyState = () => (
-    <TableRow>
-      <TableCell colSpan={columns.length} className="h-48 text-center">
-        <div className="flex flex-col items-center gap-3 text-muted-foreground">
-          <Package className="w-10 h-10 opacity-40" />
-          <p className="text-sm">{t("no_data")}</p>
-        </div>
-      </TableCell>
-    </TableRow>
-  );
-
-  const LoadingState = () =>
-    Array.from({ length: 5 }).map((_, i) => (
-      <TableRow key={i}>
-        {columns.map((_, j) => (
-          <TableCell key={j}>
-            <Skeleton className="h-4 w-full max-w-28" />
-          </TableCell>
-        ))}
-      </TableRow>
-    ));
-
-  /* -------------------- UI -------------------- */
+  if (query.isError) {
+    return <DataTableFetchError handleRefresh={query.refetch} />;
+  }
 
   return (
-    <>
-      <div className="rounded-xl border bg-background overflow-hidden">
+    <div className="rounded-xl border bg-card">
+      <ActionBar handleRefresh={handleRefresh} isRefreshing={isRefreshing}>
+        {searchComponent}
+      </ActionBar>
+
+      <div className="mx-4 overflow-hidden rounded-xl bg-gray-50 px-4 py-2 dark:bg-background">
         <div className="overflow-x-auto">
           <Table>
-            {/* HEADER */}
             <TableHeader>
-              {table.getHeaderGroups().map((hg) => (
-                <TableRow key={hg.id}>
-                  {hg.headers.map((header) => {
+              {table.getHeaderGroups().map((group) => (
+                <TableRow key={group.id}>
+                  {group.headers.map((header) => {
                     const canSort = header.column.getCanSort();
-                    const sort = header.column.getIsSorted();
 
                     return (
                       <TableHead
                         key={header.id}
                         onClick={header.column.getToggleSortingHandler()}
                         className={cn(
-                          "text-[11px] uppercase tracking-widest text-muted-foreground",
-                          canSort && "cursor-pointer select-none",
+                          "text-xs uppercase tracking-wider text-muted-foreground",
+                          canSort &&
+                            "cursor-pointer select-none hover:text-foreground",
                         )}
                       >
                         <div className="flex items-center gap-1">
@@ -140,7 +129,15 @@ export default function DataTable<T>({
                             header.column.columnDef.header,
                             header.getContext(),
                           )}
-                          {canSort && SortIcon(sort)}
+
+                          {canSort &&
+                            (header.column.getIsSorted() === "asc" ? (
+                              <ArrowUp className="h-3 w-3 text-indigo-500" />
+                            ) : header.column.getIsSorted() === "desc" ? (
+                              <ArrowDown className="h-3 w-3 text-indigo-500" />
+                            ) : (
+                              <ArrowUpDown className="h-3 w-3 opacity-40" />
+                            ))}
                         </div>
                       </TableHead>
                     );
@@ -149,23 +146,41 @@ export default function DataTable<T>({
               ))}
             </TableHeader>
 
-            {/* BODY */}
             <TableBody>
-              {isLoading ? (
-                <LoadingState />
-              ) : visibleRows.length === 0 ? (
-                <EmptyState />
+              {query.isLoading ? (
+                Array.from({ length: page.size }).map((_, i) => (
+                  <TableRow key={i}>
+                    {columns.map((_, j) => (
+                      <TableCell key={j}>
+                        <Skeleton className="h-4 w-full max-w-28" />
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))
+              ) : table.getRowModel().rows.length === 0 ? (
+                <TableRow>
+                  <TableCell
+                    colSpan={columns.length}
+                    className="h-48 text-center"
+                  >
+                    <div className="flex flex-col items-center gap-3 text-muted-foreground">
+                      <Package className="h-10 w-10 opacity-40" />
+                      <p className="text-sm">{t("no_data")}</p>
+                    </div>
+                  </TableCell>
+                </TableRow>
               ) : (
-                visibleRows.map((row, i) => (
+                table.getRowModel().rows.map((row, index) => (
                   <motion.tr
                     key={row.id}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    transition={{ delay: i * 0.02 }}
-                    onClick={() => onRowClick?.(row.original)}
+                    transition={{ delay: index * 0.02 }}
+                    onClick={() => onRowClick?.(row.original.id)}
                     className={cn(
-                      "border-b last:border-0",
-                      onRowClick && "cursor-pointer hover:bg-muted/50",
+                      "border-b transition-colors last:border-0",
+                      onRowClick &&
+                        "cursor-pointer hover:bg-white/75 dark:hover:bg-muted/20",
                     )}
                   >
                     {row.getVisibleCells().map((cell) => (
@@ -184,16 +199,13 @@ export default function DataTable<T>({
         </div>
       </div>
 
-      {/* PAGINATION */}
       <Pagination
         page={page.page}
         pageSize={page.size}
-        totalItems={data?.page?.totalElements ?? 0}
-        onPageChange={(pageNumber: number) =>
-          updatePagination({ page: pageNumber })
-        }
-        onPageSizeChange={(size: number) => updatePagination({ size, page: 0 })}
+        totalItems={query.data?.page?.totalElements ?? 0}
+        onPageChange={(page) => updatePagination({ page })}
+        onPageSizeChange={(size) => updatePagination({ size, page: 0 })}
       />
-    </>
+    </div>
   );
 }

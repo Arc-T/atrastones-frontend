@@ -11,7 +11,6 @@ import {
   Filter,
   Info,
   Copy,
-  Share2,
   Folder,
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
