@@ -24,7 +24,7 @@ export function RHFSubmitButton({
       type="submit"
       disabled={disabled || isSubmitting}
       className={cn(
-        "w-full font-semibold py-3 flex items-center justify-center shadow-md transition-all hover:shadow-lg focus-visible:ring-2 focus-visible:ring-primary/50",
+        "font-semibold flex items-center justify-center shadow-md transition-all hover:shadow-lg focus-visible:ring-2 focus-visible:ring-primary/50",
         isSubmitting && "opacity-60 cursor-not-allowed",
         className,
       )}

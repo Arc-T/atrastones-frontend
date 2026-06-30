@@ -23,16 +23,7 @@ export default function ActionBar({
   const [showFilters, setShowFilters] = useState(false);
   const { t } = useTranslation();
 
-  const formattedDate = new Date("2026-06-27T14:30:00").toLocaleString(
-    undefined,
-    {
-      month: "short",
-      day: "numeric",
-      year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-    },
-  );
+  const formattedDate = new Date("2026-06-27T14:30:00").toString();
 
   return (
     <div className="space-y-4 py-4">

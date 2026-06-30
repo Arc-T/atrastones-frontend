@@ -7,6 +7,7 @@ import AttributeSearch from "./-search";
 import type { CategoryFilter } from "@/types/category";
 import { useGetCategories } from "@/hooks/use-categories";
 import { categoryListColumn } from "./-column";
+import { List } from "lucide-react";
 
 export function CategoriesList() {
   const { t } = useTranslation();
@@ -15,7 +16,7 @@ export function CategoriesList() {
 
   return (
     <>
-      <PageHeader title={t("categories_list")} />
+      <PageHeader title={t("categories_list")} icon={<List />} />
       <div className="space-y-2">
         <div className="flex items-center justify-start gap-4">
           <div className="flex-1">

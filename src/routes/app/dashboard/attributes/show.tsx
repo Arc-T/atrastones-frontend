@@ -1,9 +1,7 @@
-import { SelectResource } from "@/components/custom/select-resource";
 import { FieldGroup } from "@/components/ui/field";
 import { useGetAttribute } from "@/hooks/use-attributes";
 import {
   PenBoxIcon,
-  ArrowLeft,
   Edit,
   Trash2,
   Calendar,
@@ -17,35 +15,11 @@ import { useTranslation } from "react-i18next";
 import { useParams, useNavigate } from "react-router";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Skeleton } from "@/components/ui/skeleton";
-import { cn } from "@/lib/utils";
 import { useState } from "react";
-
-interface FieldProps {
-  label: string;
-  value: React.ReactNode;
-  icon?: React.ReactNode;
-  className?: string;
-}
-
-const Field = ({ label, value, icon, className }: FieldProps) => (
-  <div className={cn("space-y-2", className)}>
-    <label className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
-      {icon && <span className="h-4 w-4">{icon}</span>}
-      {label}
-    </label>
-    <div className="rounded-lg border border-border bg-muted/30 px-4 py-3 transition-colors hover:bg-muted/50">
-      {value ?? "-"}
-    </div>
-  </div>
-);
-
-const FieldSkeleton = () => (
-  <div className="space-y-2">
-    <Skeleton className="h-4 w-20" />
-    <Skeleton className="h-12 w-full" />
-  </div>
-);
+import { CustomField } from "@/components/custom/elements/field";
+import { CustomIsLoadingPage } from "@/pages/is-loading";
+import { CustomIsErrorPage } from "@/pages/is-error";
+import { CustomNoResourcePage } from "@/pages/no-resource";
 
 export function AttributesShow() {
   const { t } = useTranslation();
@@ -57,52 +31,18 @@ export function AttributesShow() {
 
   // Handle loading state
   if (isLoading) {
-    return (
-      <>
-        <div className="flex items-center gap-4 pb-3">
-          <Skeleton className="h-14 w-14 rounded-xl" />
-          <div className="space-y-2">
-            <Skeleton className="h-6 w-48" />
-            <Skeleton className="h-4 w-64" />
-          </div>
-        </div>
-
-        <div className="rounded-2xl border border-border bg-card p-4 shadow-sm sm:p-6">
-          <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-            {[...Array(6)].map((_, i) => (
-              <FieldSkeleton key={i} />
-            ))}
-          </div>
-        </div>
-      </>
-    );
+    return <CustomIsLoadingPage />;
   }
 
   // Handle error state
-  if (error || !attribute) {
-    return (
-      <div className="flex flex-col items-center justify-center rounded-2xl border border-destructive/20 bg-destructive/5 p-12 text-center">
-        <div className="rounded-full bg-destructive/10 p-4">
-          <Info className="h-8 w-8 text-destructive" />
-        </div>
-        <h3 className="mt-4 text-lg font-semibold text-destructive">
-          {t("Failed to load attribute")}
-        </h3>
-        <p className="mt-2 text-sm text-muted-foreground">
-          {t("Please try again or select a different attribute")}
-        </p>
-        <Button variant="outline" className="mt-4" onClick={() => navigate(-1)}>
-          <ArrowLeft className="mr-2 h-4 w-4" />
-          {t("Go Back")}
-        </Button>
-      </div>
-    );
+  if (error) {
+    return <CustomIsErrorPage />;
   }
 
   // No ID selected
   if (!id) {
     return (
-      <SelectResource
+      <CustomNoResourcePage
         title="select_attribute_first"
         header="select_attribute"
         description="select_attribute_description"
@@ -156,7 +96,7 @@ export function AttributesShow() {
             <p className="flex items-center gap-2 text-sm text-muted-foreground">
               <span>{t("view_attribute_information")}</span>
               <span className="h-1 w-1 rounded-full bg-muted-foreground/30" />
-              <span className="font-mono text-xs">ID: {id}</span>
+              <span className="font-mono text-xs">{t("id") + `:${id}`}</span>
               <Button
                 variant="ghost"
                 size="sm"
@@ -218,14 +158,14 @@ export function AttributesShow() {
         {/* Fields Grid */}
         <div className="p-4 sm:p-6">
           <FieldGroup className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            <Field
-              label={t("name")}
+            <CustomField
+              label="name"
               value={attribute?.name}
               icon={<Tag className="h-4 w-4" />}
             />
 
-            <Field
-              label={t("category")}
+            <CustomField
+              label="category"
               value={
                 attribute?.category?.name || (
                   <span className="text-muted-foreground/60">
@@ -236,8 +176,8 @@ export function AttributesShow() {
               icon={<Folder className="h-4 w-4" />}
             />
 
-            <Field
-              label={t("filterable")}
+            <CustomField
+              label={"filterable"}
               value={
                 <Badge
                   variant={attribute?.isFilterable ? "default" : "secondary"}
@@ -248,8 +188,8 @@ export function AttributesShow() {
               icon={<Filter className="h-4 w-4" />}
             />
 
-            <Field
-              label={t("status")}
+            <CustomField
+              label="status"
               value={
                 <Badge variant="link" className="gap-1">
                   <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
@@ -259,15 +199,15 @@ export function AttributesShow() {
               icon={<Info className="h-4 w-4" />}
             />
 
-            <Field
-              label={t("created_at")}
-              value={new Date().toLocaleString()}
+            <CustomField
+              label="created_at"
+              value={attribute.createdAt}
               icon={<Calendar className="h-4 w-4" />}
             />
 
-            <Field
-              label={t("updated_at")}
-              value={new Date().toLocaleString()}
+            <CustomField
+              label="updated_at"
+              value={attribute.updatedAt}
               icon={<Calendar className="h-4 w-4" />}
             />
           </FieldGroup>
@@ -276,9 +216,9 @@ export function AttributesShow() {
         {/* Footer Actions */}
         <div className="flex flex-wrap items-center justify-between gap-4 border-t border-border px-4 py-3 sm:px-6">
           <div className="flex items-center gap-2 text-xs text-muted-foreground">
-            <span>{t("Need help?")}</span>
+            <span>{t("need_help")}</span>
             <Button variant="link" size="sm" className="h-auto px-1 text-xs">
-              {t("View Documentation")}
+              {t("view_docs")}
             </Button>
           </div>
         </div>

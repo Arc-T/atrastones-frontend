@@ -6,8 +6,8 @@ import {
   useSearchAttributeForm,
   type AttributeSearchFormValues,
 } from "@/types/attribute";
-import { RHFInput } from "@/components/custom/form/input";
-import { RHFSubmitButton } from "@/components/custom/form/button";
+import { RHFInput } from "@/components/custom/elements/form/input";
+import { RHFSubmitButton } from "@/components/custom/elements/form/button";
 
 interface Props {
   onSearch: (data: AttributeSearchFormValues) => void;

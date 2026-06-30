@@ -1,4 +1,3 @@
-import { useTranslation } from "react-i18next";
 import {
   Controller,
   type Control,
@@ -6,15 +5,9 @@ import {
   type FieldValues,
 } from "react-hook-form";
 
-import {
-  Field,
-  FieldContent,
-  FieldDescription,
-  FieldError,
-  FieldLabel,
-} from "@/components/ui/field";
-
+import { Field, FieldContent, FieldError } from "@/components/ui/field";
 import { Switch } from "@/components/ui/switch";
+import { FieldHeader } from "@/components/custom/elements/form/field-header";
 
 interface RHFSwitchProps<T extends FieldValues> {
   name: FieldPath<T>;
@@ -22,8 +15,10 @@ interface RHFSwitchProps<T extends FieldValues> {
 
   label?: string;
   description?: string;
+  icon?: React.ReactNode;
 
   disabled?: boolean;
+  required?: boolean;
   className?: string;
 }
 
@@ -32,24 +27,30 @@ export function RHFSwitch<T extends FieldValues>({
   control,
   label,
   description,
+  icon,
   disabled,
+  required,
+  className,
 }: RHFSwitchProps<T>) {
-  const { t } = useTranslation();
-
   return (
     <Controller
       name={name}
       control={control}
-      render={({ field, fieldState }) => (
-        <Field orientation="horizontal" data-invalid={fieldState.invalid}>
+      render={({ field, fieldState: { invalid, error } }) => (
+        <Field
+          orientation="horizontal"
+          data-invalid={invalid}
+          className={className}
+        >
           <FieldContent>
-            {label && <FieldLabel>{t(label)}</FieldLabel>}
+            <FieldHeader
+              label={label}
+              description={description}
+              icon={icon}
+              required={required}
+            />
 
-            {description && (
-              <FieldDescription>{t(description)}</FieldDescription>
-            )}
-
-            {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+            {invalid && <FieldError errors={[error]} />}
           </FieldContent>
 
           <Switch
@@ -59,7 +60,7 @@ export function RHFSwitch<T extends FieldValues>({
             checked={!!field.value}
             disabled={disabled}
             onCheckedChange={field.onChange}
-            aria-invalid={fieldState.invalid}
+            aria-invalid={invalid}
           />
         </Field>
       )}

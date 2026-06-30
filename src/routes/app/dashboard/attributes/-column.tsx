@@ -1,7 +1,7 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import type { Attribute } from "@/types/attribute";
 import { Badge } from "@/components/ui/badge";
-import { RowActions } from "@/components/custom/datatable/action-column";
+import { ActionsColumn } from "@/components/custom/datatable/action-column";
 import { AttributeService } from "@/services/attribute-service";
 
 export const attributeListColumn: ColumnDef<Attribute>[] = [
@@ -44,7 +44,7 @@ export const attributeListColumn: ColumnDef<Attribute>[] = [
     enableHiding: false,
     cell: ({ row }) => {
       return (
-        <RowActions
+        <ActionsColumn
           item={row.original}
           remove={AttributeService.delete}
           resource="attributes"

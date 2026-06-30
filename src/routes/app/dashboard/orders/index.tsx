@@ -5,21 +5,21 @@ import { ShoppingCart, Eye } from "lucide-react";
 import { format } from "date-fns";
 import { useTranslation } from "react-i18next";
 import PageWrapper from "@/components/custom/page-wrappers";
-import Breadcrumb from "@/components/custom/auto-breadcrumb";
-import PageHeader from "@/components/custom/page-header";
+import Breadcrumb from "src/components/custom/auto-breadcrumb";
+import PageHeader from "src/components/custom/page-header";
 import DataTable from "@/components/custom/data-table";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
+} from "src/components/ui/dialog";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
-} from "@/components/ui/select";
+} from "src/components/ui/select";
 
 export const Route = createFileRoute("/(app)/(authenticated)/dashboard/orders/")({
   component: OrdersIndex,

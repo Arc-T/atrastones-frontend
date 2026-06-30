@@ -1,7 +1,7 @@
-import { RHFSubmitButton } from "@/components/custom/form/button";
-import { RHFInput } from "@/components/custom/form/input";
-import { RHFSelect } from "@/components/custom/form/select";
-import { RHFSwitch } from "@/components/custom/form/switch";
+import { RHFSubmitButton } from "@/components/custom/elements/form/button";
+import { RHFInput } from "@/components/custom/elements/form/input";
+import { RHFSelect } from "@/components/custom/elements/form/select";
+import { RHFSwitch } from "@/components/custom/elements/form/switch";
 import { FieldGroup } from "@/components/ui/field";
 import { useCreateAttribute } from "@/hooks/use-attributes";
 import { useGetCategories } from "@/hooks/use-categories";

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
-import { Download, FileUp, Plus, Settings2 } from "lucide-react";
+import { Download, FileUp, List, Plus, Settings2 } from "lucide-react";
 
 import PageHeader from "@/components/custom/page-header";
 import DataTable from "@/components/custom/datatable/table";
@@ -34,17 +34,12 @@ export function AttributesList() {
   return (
     <div className="space-y-4">
       <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-start">
-        <div>
-          <PageHeader title={t("attributes_list")} />
-          <p className="mt-1 text-sm text-muted-foreground">
-            {t("Manage your attributes and their properties")}
-          </p>
-        </div>
+        <PageHeader title={t("attributes_list")} icon={<List />} />
 
         <div className="flex flex-wrap items-center gap-2">
           <Button
             className="h-8 gap-2"
-            onClick={() => navigate("/attributes/new")}
+            onClick={() => navigate("/dashboard/attributes/create")}
           >
             <Plus className="h-4 w-4" />
 

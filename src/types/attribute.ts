@@ -10,6 +10,7 @@ export interface Attribute {
   type: string;
   isFilterable: boolean;
   categoryId: number;
+  description: string;
   createdAt: string;
   updatedAt: string;
   // ******************** Relations ********************.
@@ -27,6 +28,7 @@ export const attributeFormSchema = z.object({
   isFilterable: z.boolean(),
   categoryId: z.number({ error: "انتخاب دسته‌بندی الزامی است" }).positive(),
   type: z.string(),
+  description: z.string().optional(),
 });
 
 export type CreateAttributeFormValues = z.infer<typeof attributeFormSchema>;
@@ -41,13 +43,15 @@ export const useCreateAttributeForm = (attribute?: Attribute) =>
           categoryId: attribute.categoryId,
           isFilterable: attribute.isFilterable,
           type: attribute.type,
+          description: attribute.description,
         }
       : undefined,
     defaultValues: {
       name: "",
       categoryId: undefined,
       isFilterable: false,
-      type: "",
+      type: undefined,
+      description: "",
     },
   });
 

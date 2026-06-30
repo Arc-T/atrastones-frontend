@@ -1,24 +1,24 @@
 import { createBrowserRouter } from "react-router";
-import { LoginPage } from "./routes/(app)/login";
-import { RootLayout } from "./routes/(app)/root";
-import { DashboardLayout } from "./routes/(app)/(authenticated)/route";
-import { DashboardIndex } from "./routes/(app)/(authenticated)";
-import { AttributesList } from "./routes/(app)/(authenticated)/attributes/list";
-import { AttributesCreate } from "./routes/(app)/(authenticated)/attributes/create";
-import { AttributesShow } from "./routes/(app)/(authenticated)/attributes/show";
-import { CategoriesCreate } from "./routes/(app)/(authenticated)/categories/create";
-import { CategoriesList } from "./routes/(app)/(authenticated)/categories/list";
-import { CategoriesShow } from "./routes/(app)/(authenticated)/categories/show";
-import { TagsCreate } from "./routes/(app)/(authenticated)/tags/create";
-import { TagsList } from "./routes/(app)/(authenticated)/tags/list";
-import { TagsShow } from "./routes/(app)/(authenticated)/tags/show";
-import { ServicesCreate } from "./routes/(app)/(authenticated)/services/create";
-import { ServicesList } from "./routes/(app)/(authenticated)/services/list";
-import { ServicesShow } from "./routes/(app)/(authenticated)/services/show";
-import { ProductsCreate } from "./routes/(app)/(authenticated)/products/create";
-import { ProductsList } from "./routes/(app)/(authenticated)/products/list";
-import { ProductsShow } from "./routes/(app)/(authenticated)/products/show";
-import { AttributesEdit } from "./routes/(app)/(authenticated)/attributes/edit";
+import { LoginPage } from "./routes/app/login";
+import { RootLayout } from "./routes/app/root";
+import { DashboardLayout } from "./routes/app/dashboard/route";
+import { DashboardIndex } from "./routes/app/dashboard";
+import { AttributesList } from "./routes/app/dashboard/attributes/list";
+import { AttributesCreate } from "./routes/app/dashboard/attributes/create";
+import { AttributesShow } from "./routes/app/dashboard/attributes/show";
+import { CategoriesCreate } from "./routes/app/dashboard/categories/create";
+import { CategoriesList } from "./routes/app/dashboard/categories/list";
+import { CategoriesShow } from "./routes/app/dashboard/categories/show";
+import { TagsCreate } from "./routes/app/dashboard/tags/create";
+import { TagsList } from "./routes/app/dashboard/tags/list";
+import { TagsShow } from "./routes/app/dashboard/tags/show";
+import { ServicesCreate } from "./routes/app/dashboard/services/create";
+import { ServicesList } from "./routes/app/dashboard/services/list";
+import { ServicesShow } from "./routes/app/dashboard/services/show";
+import { ProductsCreate } from "./routes/app/dashboard/products/create";
+import { ProductsList } from "./routes/app/dashboard/products/list";
+import { ProductsShow } from "./routes/app/dashboard/products/show";
+import { AttributesEdit } from "./routes/app/dashboard/attributes/edit";
 
 export const router = createBrowserRouter([
   {

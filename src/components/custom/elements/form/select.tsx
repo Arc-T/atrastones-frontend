@@ -6,13 +6,8 @@ import {
   type FieldValues,
 } from "react-hook-form";
 import { AlertCircle, Loader2 } from "lucide-react";
-import {
-  Field,
-  FieldContent,
-  FieldDescription,
-  FieldError,
-  FieldLabel,
-} from "@/components/ui/field";
+
+import { Field, FieldContent, FieldError } from "@/components/ui/field";
 import {
   Select,
   SelectContent,
@@ -20,22 +15,30 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { FieldHeader } from "@/components/custom/elements/form/field-header";
 
 export interface SelectOption {
   value: string;
   label: string;
 }
 
-interface FormSelectProps<T extends FieldValues> {
+interface RHFSelectProps<T extends FieldValues> {
   name: FieldPath<T>;
   control: Control<T>;
   options: SelectOption[];
+
   valueType?: "string" | "number";
+
   label?: string;
   description?: string;
+
   disabled?: boolean;
+  required?: boolean;
+
   isPending?: boolean;
   isError?: boolean;
+
+  icon?: React.ReactNode;
 }
 
 export function RHFSelect<T extends FieldValues>({
@@ -45,48 +48,62 @@ export function RHFSelect<T extends FieldValues>({
   label,
   description,
   disabled,
+  required,
   valueType = "number",
   isPending = false,
   isError = false,
-}: FormSelectProps<T>) {
+  icon,
+}: RHFSelectProps<T>) {
   const { t, i18n } = useTranslation();
+
   const selectDisabled = disabled || isPending || isError;
-  const statusKey = isPending
-    ? "loading"
+
+  const placeholder = isPending
+    ? t("loading")
     : isError
-      ? "failed_to_fetch"
-      : "select";
+      ? t("failed_to_fetch")
+      : t("select");
 
   return (
     <Controller
       name={name}
       control={control}
       render={({ field, fieldState }) => {
-        const isInvalid = fieldState.invalid || isError;
-
+        const invalid = fieldState.invalid || isError;
+        console.log(field.value);
+        console.log(options);
         return (
-          <Field orientation="responsive" data-invalid={fieldState.invalid}>
+          <Field orientation="responsive" data-invalid={invalid}>
             <FieldContent>
-              {label && <FieldLabel>{t(label)}</FieldLabel>}
-              {description && (
-                <FieldDescription>{t(description)}</FieldDescription>
-              )}
+              <FieldHeader
+                label={label}
+                description={description}
+                icon={icon}
+                required={required}
+              />
+
               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
             </FieldContent>
 
             <Select
               disabled={selectDisabled}
-              value={field.value != null ? String(field.value) : ""}
-              onValueChange={(value) =>
-                field.onChange(valueType === "number" ? Number(value) : value)
-              }
+              value={field.value?.toString() || ""}
+              onValueChange={(value) => {
+                if (value === "") return;
+                if (valueType === "number") {
+                  field.onChange(Number(value));
+                } else {
+                  field.onChange(value);
+                }
+              }}
             >
               <SelectTrigger
                 dir={i18n.dir()}
-                aria-invalid={isInvalid}
-                className={`flex w-full items-center justify-between gap-2${isError ? " border-destructive data-placeholder:text-destructive" : ""}`}
+                aria-invalid={invalid}
+                className="w-full"
               >
-                <SelectValue placeholder={t(statusKey)} />
+                <SelectValue placeholder={placeholder} />
+
                 {isPending && <Loader2 className="size-4 animate-spin" />}
                 {isError && <AlertCircle className="size-4 text-destructive" />}
               </SelectTrigger>

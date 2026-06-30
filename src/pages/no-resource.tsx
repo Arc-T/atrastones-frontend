@@ -14,7 +14,7 @@ interface Props {
   className?: string;
 }
 
-export function SelectResource({
+export function CustomNoResourcePage({
   title,
   description,
   backPath,

@@ -16,7 +16,7 @@ export function mapToSelectOptions<T extends { id: number; name: string }>(
   );
 }
 
-export function toQueryString(params?: Record<string, any>): string {
+export function toQueryString(params?: Record<string, string>): string {
   if (!params) return "";
   const query = Object.entries(params)
     .filter(
